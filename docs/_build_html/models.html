@@ -1,0 +1,698 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>2. 模型 &#8212; wtxlog 0.1-dev documentation</title>
+    
+    <link rel="stylesheet" href="_static/flasky.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="wtxlog 0.1-dev documentation" href="index.html" />
+    <link rel="next" title="3. 主题(皮肤)" href="templating.html" />
+    <link rel="prev" title="1. 应用部署" href="installation.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">
+  
+  
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="templating.html" title="3. 主题(皮肤)"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="installation.html" title="1. 应用部署"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">wtxlog 0.1-dev documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1>2. 模型<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="category">
+<h2>2.1. 栏目/分类 Category<a class="headerlink" href="#category" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="29%" />
+<col width="54%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">属性分类</th>
+<th class="head">属性名称</th>
+<th class="head">中文说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td rowspan="13">基本属性</td>
+<td>id</td>
+<td>自动编号</td>
+</tr>
+<tr class="row-odd"><td>slug</td>
+<td>英文标识符</td>
+</tr>
+<tr class="row-even"><td>longslug</td>
+<td>栏目路径</td>
+</tr>
+<tr class="row-odd"><td>name</td>
+<td>栏目名称</td>
+</tr>
+<tr class="row-even"><td>parent</td>
+<td>父级栏目</td>
+</tr>
+<tr class="row-odd"><td>seotitle</td>
+<td>SEO标题</td>
+</tr>
+<tr class="row-even"><td>seokey</td>
+<td>SEO关键词</td>
+</tr>
+<tr class="row-odd"><td>seodesc</td>
+<td>SEO描述</td>
+</tr>
+<tr class="row-even"><td>thumbnail</td>
+<td>缩略图URL</td>
+</tr>
+<tr class="row-odd"><td>template</td>
+<td>栏目页模板文件</td>
+</tr>
+<tr class="row-even"><td>article_template</td>
+<td>栏目下属文章页模板文件</td>
+</tr>
+<tr class="row-odd"><td>body</td>
+<td>栏目介绍</td>
+</tr>
+<tr class="row-even"><td>body_html</td>
+<td>栏目介绍HTML</td>
+</tr>
+<tr class="row-odd"><td rowspan="5">特殊属性</td>
+<td>link</td>
+<td>栏目的URL链接(包含域名)</td>
+</tr>
+<tr class="row-even"><td>shortlink</td>
+<td>栏目的URL链接</td>
+</tr>
+<tr class="row-odd"><td>count</td>
+<td>栏目文章数（包含子栏目）</td>
+</tr>
+<tr class="row-even"><td>parents</td>
+<td>栏目的上级目录列表</td>
+</tr>
+<tr class="row-odd"><td>tree</td>
+<td>树形列表</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="tag">
+<h2>2.2. 标签 Tag<a class="headerlink" href="#tag" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="29%" />
+<col width="54%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">属性分类</th>
+<th class="head">属性名称</th>
+<th class="head">中文说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td rowspan="9">基本属性</td>
+<td>id</td>
+<td>自动编号</td>
+</tr>
+<tr class="row-odd"><td>name</td>
+<td>Tag名称</td>
+</tr>
+<tr class="row-even"><td>seotitle</td>
+<td>SEO标题</td>
+</tr>
+<tr class="row-odd"><td>seokey</td>
+<td>SEO关键词</td>
+</tr>
+<tr class="row-even"><td>seodesc</td>
+<td>SEO描述</td>
+</tr>
+<tr class="row-odd"><td>thumbnail</td>
+<td>缩略图URL</td>
+</tr>
+<tr class="row-even"><td>template</td>
+<td>Tag列表页模板文件</td>
+</tr>
+<tr class="row-odd"><td>body</td>
+<td>Tag介绍</td>
+</tr>
+<tr class="row-even"><td>body_html</td>
+<td>Tag介绍HTML</td>
+</tr>
+<tr class="row-odd"><td rowspan="3">特殊属性</td>
+<td>link</td>
+<td>Tag的URL链接(包含域名)</td>
+</tr>
+<tr class="row-even"><td>shortlink</td>
+<td>Tag的URL链接</td>
+</tr>
+<tr class="row-odd"><td>count</td>
+<td>Tag文章数</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="topic">
+<h2>2.3. 专题 Topic<a class="headerlink" href="#topic" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="29%" />
+<col width="54%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">属性分类</th>
+<th class="head">属性名称</th>
+<th class="head">中文说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td rowspan="10">基本属性</td>
+<td>id</td>
+<td>自动编号</td>
+</tr>
+<tr class="row-odd"><td>slug</td>
+<td>英文唯一标识符</td>
+</tr>
+<tr class="row-even"><td>name</td>
+<td>专题名称</td>
+</tr>
+<tr class="row-odd"><td>seotitle</td>
+<td>SEO标题</td>
+</tr>
+<tr class="row-even"><td>seokey</td>
+<td>SEO关键词</td>
+</tr>
+<tr class="row-odd"><td>seodesc</td>
+<td>SEO描述</td>
+</tr>
+<tr class="row-even"><td>thumbnail</td>
+<td>缩略图URL</td>
+</tr>
+<tr class="row-odd"><td>template</td>
+<td>专题页模板文件</td>
+</tr>
+<tr class="row-even"><td>body</td>
+<td>专题介绍</td>
+</tr>
+<tr class="row-odd"><td>body_html</td>
+<td>专题介绍HTML</td>
+</tr>
+<tr class="row-even"><td rowspan="3">特殊属性</td>
+<td>link</td>
+<td>Tag的URL链接(包含域名)</td>
+</tr>
+<tr class="row-odd"><td>shortlink</td>
+<td>Tag的URL链接</td>
+</tr>
+<tr class="row-even"><td>count</td>
+<td>Tag文章数</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="article">
+<h2>2.4. 文章 Article<a class="headerlink" href="#article" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="29%" />
+<col width="54%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">属性分类</th>
+<th class="head">属性名称</th>
+<th class="head">中文说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td rowspan="22">基本属性</td>
+<td>id</td>
+<td>自动编号</td>
+</tr>
+<tr class="row-odd"><td>slug</td>
+<td>英文标识符，目前暂时无效</td>
+</tr>
+<tr class="row-even"><td>title</td>
+<td>标题</td>
+</tr>
+<tr class="row-odd"><td>seotitle</td>
+<td>SEO标题</td>
+</tr>
+<tr class="row-even"><td>seokey</td>
+<td>SEO关键词</td>
+</tr>
+<tr class="row-odd"><td>seodesc</td>
+<td>SEO描述</td>
+</tr>
+<tr class="row-even"><td>category</td>
+<td>所属栏目(基于Category模型)</td>
+</tr>
+<tr class="row-odd"><td>topic</td>
+<td>所属专题(基于Topic模型)</td>
+</tr>
+<tr class="row-even"><td>tags</td>
+<td>Tags标签列表(基于Tag模型)</td>
+</tr>
+<tr class="row-odd"><td>thumbnail</td>
+<td>缩略图URL</td>
+</tr>
+<tr class="row-even"><td>thumbnail_big</td>
+<td>大缩略图URL</td>
+</tr>
+<tr class="row-odd"><td>template</td>
+<td>内容页模板文件</td>
+</tr>
+<tr class="row-even"><td>summary</td>
+<td>摘要</td>
+</tr>
+<tr class="row-odd"><td>body</td>
+<td>正文</td>
+</tr>
+<tr class="row-even"><td>body_html</td>
+<td>正文HTML</td>
+</tr>
+<tr class="row-odd"><td>published</td>
+<td>发表标记</td>
+</tr>
+<tr class="row-even"><td>ontop</td>
+<td>置顶标记</td>
+</tr>
+<tr class="row-odd"><td>recommend</td>
+<td>推荐标记</td>
+</tr>
+<tr class="row-even"><td>hits</td>
+<td>点击数</td>
+</tr>
+<tr class="row-odd"><td>author</td>
+<td>作者(基于User模型)</td>
+</tr>
+<tr class="row-even"><td>created</td>
+<td>创建的时间</td>
+</tr>
+<tr class="row-odd"><td>last_modified</td>
+<td>最后更新的时间</td>
+</tr>
+<tr class="row-even"><td rowspan="5">特殊属性</td>
+<td>has_more</td>
+<td>是否有MORE分隔符</td>
+</tr>
+<tr class="row-odd"><td>link</td>
+<td>文章的URL链接(包含域名)</td>
+</tr>
+<tr class="row-even"><td>shortlink</td>
+<td>文章的URL链接</td>
+</tr>
+<tr class="row-odd"><td>get_next</td>
+<td>返回下一篇文章（Article模型）</td>
+</tr>
+<tr class="row-even"><td>get_prev</td>
+<td>返回上一篇文章（Article模型）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="flatpage">
+<h2>2.5. 单页面 Flatpage<a class="headerlink" href="#flatpage" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="29%" />
+<col width="54%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">属性分类</th>
+<th class="head">属性名称</th>
+<th class="head">中文说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td rowspan="9">基本属性</td>
+<td>id</td>
+<td>自动编号</td>
+</tr>
+<tr class="row-odd"><td>slug</td>
+<td>英文唯一标识符</td>
+</tr>
+<tr class="row-even"><td>title</td>
+<td>页面标题</td>
+</tr>
+<tr class="row-odd"><td>seotitle</td>
+<td>SEO标题</td>
+</tr>
+<tr class="row-even"><td>seokey</td>
+<td>SEO关键词</td>
+</tr>
+<tr class="row-odd"><td>seodesc</td>
+<td>SEO描述</td>
+</tr>
+<tr class="row-even"><td>template</td>
+<td>页面内容页模板文件</td>
+</tr>
+<tr class="row-odd"><td>body</td>
+<td>页面介绍</td>
+</tr>
+<tr class="row-even"><td>body_html</td>
+<td>页面介绍HTML</td>
+</tr>
+<tr class="row-odd"><td rowspan="2">特殊属性</td>
+<td>link</td>
+<td>页面的URL链接(包含域名)</td>
+</tr>
+<tr class="row-even"><td>shortlink</td>
+<td>页面的URL链接</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="label">
+<h2>2.6. 静态标签 Label<a class="headerlink" href="#label" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="29%" />
+<col width="54%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">属性分类</th>
+<th class="head">属性名称</th>
+<th class="head">中文说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td rowspan="4">基本属性</td>
+<td>id</td>
+<td>自动编号</td>
+</tr>
+<tr class="row-odd"><td>slug</td>
+<td>英文唯一标识符</td>
+</tr>
+<tr class="row-even"><td>title</td>
+<td>标签标题</td>
+</tr>
+<tr class="row-odd"><td>html</td>
+<td>标签HTML代码</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="friendlink">
+<h2>2.7. 友情链接 FriendLink<a class="headerlink" href="#friendlink" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="29%" />
+<col width="54%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">属性分类</th>
+<th class="head">属性名称</th>
+<th class="head">中文说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td rowspan="7">基本属性</td>
+<td>id</td>
+<td>自动编号</td>
+</tr>
+<tr class="row-odd"><td>anchor</td>
+<td>锚文本</td>
+</tr>
+<tr class="row-even"><td>title</td>
+<td>显示的标题</td>
+</tr>
+<tr class="row-odd"><td>url</td>
+<td>URL链接</td>
+</tr>
+<tr class="row-even"><td>order</td>
+<td>排序值，越小越前面</td>
+</tr>
+<tr class="row-odd"><td>actived</td>
+<td>有效标记</td>
+</tr>
+<tr class="row-even"><td>note</td>
+<td>备注信息</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="redirect">
+<h2>2.8. 重定向 Redirect<a class="headerlink" href="#redirect" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="29%" />
+<col width="54%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">属性分类</th>
+<th class="head">属性名称</th>
+<th class="head">中文说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td rowspan="4">基本属性</td>
+<td>id</td>
+<td>自动编号</td>
+</tr>
+<tr class="row-odd"><td>old_path</td>
+<td>需要重定向的旧路径</td>
+</tr>
+<tr class="row-even"><td>new_path</td>
+<td>要重定向到的新路径</td>
+</tr>
+<tr class="row-odd"><td>note</td>
+<td>备注信息</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="user">
+<h2>2.9. 用户 User<a class="headerlink" href="#user" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="29%" />
+<col width="54%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">属性分类</th>
+<th class="head">属性名称</th>
+<th class="head">中文说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td rowspan="11">基本属性</td>
+<td>id</td>
+<td>自动编号</td>
+</tr>
+<tr class="row-odd"><td>email</td>
+<td>电子邮件</td>
+</tr>
+<tr class="row-even"><td>username</td>
+<td>用户名</td>
+</tr>
+<tr class="row-odd"><td>name</td>
+<td>昵称</td>
+</tr>
+<tr class="row-even"><td>role</td>
+<td>所属角色(基于Role模型)</td>
+</tr>
+<tr class="row-odd"><td>password_hash</td>
+<td>密码哈希(Hash)值</td>
+</tr>
+<tr class="row-even"><td>confirmed</td>
+<td>确认标记</td>
+</tr>
+<tr class="row-odd"><td>about_me</td>
+<td>自我介绍</td>
+</tr>
+<tr class="row-even"><td>member_since</td>
+<td>注册时间</td>
+</tr>
+<tr class="row-odd"><td>last_seen</td>
+<td>上次活动时间</td>
+</tr>
+<tr class="row-even"><td>avatar_hash</td>
+<td>Gravatar头像哈希(Hash)值</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="role">
+<h2>2.10. 角色 Role<a class="headerlink" href="#role" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="29%" />
+<col width="54%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">属性分类</th>
+<th class="head">属性名称</th>
+<th class="head">中文说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td rowspan="5">基本属性</td>
+<td>id</td>
+<td>自动编号</td>
+</tr>
+<tr class="row-odd"><td>name</td>
+<td>角色名称</td>
+</tr>
+<tr class="row-even"><td>default</td>
+<td>默认角色标记</td>
+</tr>
+<tr class="row-odd"><td>permissions</td>
+<td>角色权限值</td>
+</tr>
+<tr class="row-even"><td>users</td>
+<td>角色对应的用户(User模型)列表</td>
+</tr>
+</tbody>
+</table>
+<p><strong>可调用的方法:</strong></p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">insert_roles</span></code> 插入默认的角色分组信息</li>
+</ul>
+</div>
+<div class="section" id="setting">
+<h2>2.11. 设置 Setting<a class="headerlink" href="#setting" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="29%" />
+<col width="54%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">属性分类</th>
+<th class="head">属性名称</th>
+<th class="head">中文说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td rowspan="6">基本属性</td>
+<td>id</td>
+<td>自动编号</td>
+</tr>
+<tr class="row-odd"><td>name</td>
+<td>设置的名称</td>
+</tr>
+<tr class="row-even"><td>rawvalue</td>
+<td>设置的原始值</td>
+</tr>
+<tr class="row-odd"><td>formatter</td>
+<td>设置的格式化类型</td>
+</tr>
+<tr class="row-even"><td>builtin</td>
+<td>内置标记</td>
+</tr>
+<tr class="row-odd"><td>description</td>
+<td>描述</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">当名称为大写且内置标记为真时, 这个设置会更新到应用程序配置字典.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">2. 模型</a><ul>
+<li><a class="reference internal" href="#category">2.1. 栏目/分类 Category</a></li>
+<li><a class="reference internal" href="#tag">2.2. 标签 Tag</a></li>
+<li><a class="reference internal" href="#topic">2.3. 专题 Topic</a></li>
+<li><a class="reference internal" href="#article">2.4. 文章 Article</a></li>
+<li><a class="reference internal" href="#flatpage">2.5. 单页面 Flatpage</a></li>
+<li><a class="reference internal" href="#label">2.6. 静态标签 Label</a></li>
+<li><a class="reference internal" href="#friendlink">2.7. 友情链接 FriendLink</a></li>
+<li><a class="reference internal" href="#redirect">2.8. 重定向 Redirect</a></li>
+<li><a class="reference internal" href="#user">2.9. 用户 User</a></li>
+<li><a class="reference internal" href="#role">2.10. 角色 Role</a></li>
+<li><a class="reference internal" href="#setting">2.11. 设置 Setting</a></li>
+</ul>
+</li>
+</ul>
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="installation.html" title="previous chapter">1. 应用部署</a></li>
+      <li>Next: <a href="templating.html" title="next chapter">3. 主题(皮肤)</a></li>
+  </ul></li>
+</ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/models.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <div class="footer">
+    &copy; Copyright 2014-2015, digwtx.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+  </div>
+  
+  </body>
+</html>
