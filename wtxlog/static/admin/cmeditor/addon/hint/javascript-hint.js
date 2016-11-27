@@ -30,15 +30,20 @@
 
   function scriptHint(editor, keywords, getToken, options) {
     // Find the token at the cursor
-    var cur = editor.getCursor(), token = getToken(editor, cur), tprop = token;
+    var cur = editor.getCursor(), token = getToken(editor, cur);
     if (/\b(?:string|comment)\b/.test(token.type)) return;
     token.state = CodeMirror.innerMode(editor.getMode(), token.state).state;
 
     // If it's not a 'word-style' token, ignore the token.
     if (!/^[\w$_]*$/.test(token.string)) {
-      token = tprop = {start: cur.ch, end: cur.ch, string: "", state: token.state,
-                       type: token.string == "." ? "property" : null};
+      token = {start: cur.ch, end: cur.ch, string: "", state: token.state,
+               type: token.string == "." ? "property" : null};
+    } else if (token.end > cur.ch) {
+      token.end = cur.ch;
+      token.string = token.string.slice(0, cur.ch - token.start);
     }
+
+    var tprop = token;
     // If it is a property, find out what it is a property of.
     while (tprop.type == "property") {
       tprop = getToken(editor, Pos(cur.line, tprop.start));
@@ -92,6 +97,15 @@
   var coffeescriptKeywords = ("and break catch class continue delete do else extends false finally for " +
                   "if in instanceof isnt new no not null of off on or return switch then throw true try typeof until void while with yes").split(" ");
 
+  function forAllProps(obj, callback) {
+    if (!Object.getOwnPropertyNames || !Object.getPrototypeOf) {
+      for (var name in obj) callback(name)
+    } else {
+      for (var o = obj; o; o = Object.getPrototypeOf(o))
+        Object.getOwnPropertyNames(o).forEach(callback)
+    }
+  }
+
   function getCompletions(token, context, keywords, options) {
     var found = [], start = token.string, global = options && options.globalScope || window;
     function maybeAdd(str) {
@@ -101,7 +115,7 @@
       if (typeof obj == "string") forEach(stringProps, maybeAdd);
       else if (obj instanceof Array) forEach(arrayProps, maybeAdd);
       else if (obj instanceof Function) forEach(funcProps, maybeAdd);
-      for (var name in obj) maybeAdd(name);
+      forAllProps(obj, maybeAdd)
     }
 
     if (context && context.length) {

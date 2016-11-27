@@ -129,13 +129,13 @@ def tags(template):
 def tag(template, name, page=1):
     """
     :param template:
-        模板文件，此参数自动传入
+    Файл шаблона, этот параметр автоматически передается
     :param name:
-        Tag名称，若为非ASCII字符，一般是经过URL编码的
+        Имя тега, если не-ASCII символов, как правило, через URL закодированного
     """
-    # 若name为非ASCII字符，传入时一般是经过URL编码的
-    # 若name为URL编码，则需要解码为Unicode
-    # URL编码判断方法：若已为URL编码, 再次编码会在每个码之前出现`%25`
+    # Если name Не ASCII，Входящий в основном через URL закодированного
+    # Если name URL Код, вам нужно будет декодировать Unicode
+    # URL-код метода судить: Если такой URL-закодированы, кодирование будет появляться снова до 25 ``% каждого кода
     _name = to_bytes(name, 'utf-8')
     if urllib.quote(_name).count('%25') > 0:
         name = urllib.unquote(_name)
@@ -309,7 +309,7 @@ def feed():
 @main.route('/upload/', methods=['POST', 'OPTIONS'])
 @permission_required(Permission.UPLOAD_FILES)
 def upload():
-    ''' 文件上传函数 '''
+    ''' Функция загрузки файла '''
 
     result = {"err": "", "msg": {"url": "", "localfile": ""}}
     fname = ''
@@ -317,13 +317,13 @@ def upload():
     data = None
 
     if request.method == 'POST' and 'filedata' in request.files:
-        # 传统上传模式，IE浏览器使用这种模式
+        # традиционный режим, IE браузер использeт этот режим
         fileobj = request.files['filedata']
         result["msg"]["localfile"] = fileobj.filename
         fname, fext = os.path.splitext(fileobj.filename)
         data = fileobj.read()
     elif 'CONTENT_DISPOSITION' in request.headers:
-        # HTML5上传模式，FIREFOX等默认使用此模式
+        # HTML5 Режим загрузки, FireFox по умолчанию в этом режиме, и т.д.
         pattern = re.compile(r"""\s.*?\s?filename\s*=\s*['|"]?([^\s'"]+).*?""", re.I)
         _d = request.headers.get('CONTENT_DISPOSITION').encode('utf-8')
         if urllib.quote(_d).count('%25') > 0:
@@ -352,9 +352,9 @@ def upload():
 @permission_required(Permission.UPLOAD_FILES)
 def uploadremote():
     """
-    xheditor保存远程图片简单实现
-    URL用"|"分隔，返回的字符串也是用"|"分隔
-    返回格式是字符串，不是JSON格式
+    xheditorСохранить простую реализацию удаленного изображения
+     URL с "|" разграничены строка возвращается с "|" разделены
+     Возвращает строку формат не формат JSON
     """
     localdomain_re = re.compile("""https?:\/\/[^\/]*?(bcs\.duapp\.com)\/""", re.I)
     imageTypes = {'gif': '.gif', 'jpeg': '.jpg', 'jpg': '.jpg', 'png': '.png'}
@@ -414,7 +414,7 @@ def ckupload():
     callback = request.args.get("CKEditorFuncNum")
 
     if request.method == 'POST' and 'upload' in request.files:
-        # 传统上传模式，IE浏览器使用这种模式
+        # Для IE и прочих устаревших браузеров
         fileobj = request.files['upload']
         data = fileobj.read()
         fname, fext = os.path.splitext(fileobj.filename)
