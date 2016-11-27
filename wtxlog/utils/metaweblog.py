@@ -11,7 +11,7 @@ from flask import url_for, current_app, g
 from .upload import SaveUploadFile
 from ..models import db, User, Article as Post, Category
 
-# 删除为知笔记的尾巴
+#Удалить хвост известные ноты
 pattern_wiz = re.compile(r'''<br\s?/><br\s?/><div><a.*href="http://www.wiz.cn.*">.*</a></div><br\s?/><br\s?/>''', re.I)
 
 
@@ -83,7 +83,7 @@ def blogger_deletePost(appkey, postid, publish=False):
 
 @checkauth()
 def metaWeblog_newPost(blogid, struct, publish):
-    """发布新博客"""
+    """Опубликовать новый пост в блог"""
     _post = struct
 
     category_id = None
@@ -119,7 +119,7 @@ def metaWeblog_newPost(blogid, struct, publish):
 
 @checkauth()
 def metaWeblog_editPost(postid, struct, publish):
-    """修改（更新）博客"""
+    """Изменить (обновить) пост в блоге"""
     _post = struct
 
     category_id = None
@@ -147,7 +147,7 @@ def metaWeblog_editPost(postid, struct, publish):
 
 @checkauth()
 def metaWeblog_newMediaObject(blogid, struct):
-    """多媒体文件上传，比如图片"""
+    """Загрузка мультимедийных файлов, таких как фотографии"""
 
     IMAGE_TYPES = {
         'image/jpeg': '.jpg',
@@ -158,10 +158,10 @@ def metaWeblog_newMediaObject(blogid, struct):
     media = struct
     fext = IMAGE_TYPES.get(media['type'])
 
-    # data为二进制内容
+    # data Бинарная содержание
     data = media['bits'].data
 
-    # 这部分根据情况自定义
+    # Эта часть обычаев при обстоятельствах
     obj = SaveUploadFile(fext, data)
     url = obj.save()
     return {'url': url}
@@ -169,7 +169,7 @@ def metaWeblog_newMediaObject(blogid, struct):
 
 @checkauth()
 def metaWeblog_getCategories(blogid):
-    """获取目录列表"""
+    """Получить список каталогов"""
 
     categories = Category.query.all()
 

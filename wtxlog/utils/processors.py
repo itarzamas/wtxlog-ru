@@ -11,11 +11,11 @@ from helpers import get_category_ids
 
 
 def utility_processor():
-    """自定义模板处理器"""
+    """Custom процессор шаблонов."""
 
     def archives():
         """
-        返回从第一篇文章开始到现在所经历的月份列表
+        Назад к списку месяц из первой статьи настоящего времени испытали
         """
         # archives = cache.get("archives")
         archives = None
@@ -46,7 +46,7 @@ def utility_processor():
 
     def model_query(model, search_params):
         '''
-        模型复杂查询
+        Модель сложных запросов
 
         :param model:
             实例模型，比如Article, Category, Tag, etc.
@@ -196,12 +196,12 @@ def utility_processor():
 
     def get_thumbnail_articles(category=None, limit=10):
         """
-        返回有缩略图的文章列表
+         Возвращает есть список миниатюр статей
 
         :param category:
-            当前栏目，`None`或者`Category`实例
+           Текущая тема, `None` или`Category`
         :param limit:
-            返回的个数，正整数，默认为10
+         количество- положительное целое число, по умолчанию 10
         """
         _query = Article.query.public()
         if isinstance(category, Category):
@@ -211,14 +211,14 @@ def utility_processor():
 
     def get_articles_by_category(longslug='', limit=10, expand=True):
         """
-        根据栏目路径返回文章列表
+        Вернуться к списку статей в соответствии с пути колонны
 
         :param longslug:
-            栏目路径，字符串，不要以`/`结尾
-        :param limit:
-            返回的个数，整数
+         Столбцы путь, строка, а не в `/` конец
+         Количество возвращаемого целого числа
+         :param limit:
+             Независимо от того, чтобы вернуть подраздел статьи, `false` только возвращает текущую статью столбца
         :param expand:
-            是否返回子栏目文章，`False`则只返回当前栏目的文章
         """
         _query = Article.query.public()
         category = Category.query.filter_by(longslug=longslug).first()
@@ -232,16 +232,14 @@ def utility_processor():
 
     def friendlinks():
         """
-        返回所有有效的友情链接列表
+        Возвращает список всех действительных ссылок
         """
         return FriendLink.query.filter_by(actived=True).all()
 
     def label(slug):
         """
-        返回静态标签
-
-        :param slug:
-            英文标识符，unicode类型
+        Назад Статический этикетки
+        :param slug:Английский идентификатор, тип unicode
         """
         s = Label.query.filter_by(slug=slug).first()
         return Markup(render_template_string(s.html)) if s is not None else ''

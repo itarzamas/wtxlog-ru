@@ -18,7 +18,7 @@
 <div class="post" id="article-{{ article.id }}">
   <ul class="date">
     <li class="day">{{ article.created|date('%d') }}</li>
-    <li class="month">{{ article.created|date('%m') }}月</li>
+    <li class="month">{{ article.created|date('%m') }}месяц</li>
   </ul>
 
   <div class="title">
@@ -31,21 +31,21 @@
   <div class="entry">
     {{ article.body_html|safe }}
 
-    <p>本文链接: <a href="{{ article.link }}" title="{{ article.title }}">{{ article.link }}</a> <br/>
-    版权所有。转载时必须以链接形式注明作者和原始出处及本声明。</p>
+    <p>Эта ссылка: <a href="{{ article.link }}" title="{{ article.title }}">{{ article.link }}</a> <br/>
+    Все права защищены. Вы должны указать автора и оригинал и это заявление в качестве ссылки .</p>
 
     {% if article.tags %}
     <div id="tags">Tags: &nbsp; {% for tag in article.tags %}<a href="{{ tag.link }}">{{ tag.name }}</a>{%if not loop.last %},&nbsp;{% endif %}{% endfor %}. </div>
     {% endif %}
 
     {% if article.topic %}
-    <p>专题: &nbsp; <a href="{{ article.topic.link }}">{{ article.topic.name }}</a></p>
+    <p>Специальная тема: &nbsp; <a href="{{ article.topic.link }}">{{ article.topic.name }}</a></p>
     {% endif %}
 
-    <!-- UJian Button BEGIN -->
+    <!-- UJian Button BEGIN 
     <div class="ujian-hook"></div>
-    <a rel="nofollow" href="http://www.ujian.cc" style="border:0;"><img src="http://img.ujian.cc/pixel.png" alt="友荐云推荐" style="border:0;padding:0;margin:0;" /></a>
-    <!-- UJian Button END -->
+    <a rel="nofollow" href="http://www.ujian.cc" style="border:0;"><img src="http://img.ujian.cc/pixel.png" alt="Друзья рекомендовали облако Рекомендовано" style="border:0;padding:0;margin:0;" /></a>
+    UJian Button END -->
 
   </div>
 </div>
@@ -55,9 +55,9 @@
     {% if article.get_next %}<li class="b-meta">Next: <a href="{{ article.get_next.link }}">{{ article.get_next.title }}</a></li>{% endif %}
   </div>
 
-<!-- UY BEGIN -->
+<!-- UY BEGIN 
 <div id="uyan_frame"></div>
-<!-- UY END -->
+-- UY END -->
 
 {% endblock %}
 
@@ -77,10 +77,10 @@
 {%- endblock %}
 
 {% block tail -%}
-  <!-- UY BEGIN -->
+  <!-- UY BEGIN -
   <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1685977"></script>
   <script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?uid=1685977"></script>
-  <!-- UY END -->
+   UY END -->
   <script>gethits({{ article.id }}, 'articlehits');</script>
   <script src="{{ theme_static('js/highlight.min.js') }}"></script>
   <script>hljs.initHighlightingOnLoad();</script>
