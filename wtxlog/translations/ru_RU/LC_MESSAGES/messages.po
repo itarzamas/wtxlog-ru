@@ -228,20 +228,20 @@ msgstr "Пользователь"
 
 #: ../account/templates/base.html:12 ../account/templates/index.html:3
 msgid "Index"
-msgstr ""
+msgstr "Index"
 
 #: ../account/templates/base.html:14
 #: ../account/templates/change_password.html:5
 #: ../account/templates/change_password.html:9
 #: ../account/templates/change_password.html:29
 msgid "Change Password"
-msgstr ""
+msgstr "Сменить пароль"
 
 #: ../account/templates/base.html:15 ../account/templates/change_email.html:5
 #: ../account/templates/change_email.html:9
 #: ../account/templates/change_email.html:29
 msgid "Change Email"
-msgstr ""
+msgstr "Сменить Почту"
 
 #: ../account/templates/base.html:16 ../templates/admin/my_master.html:11
 msgid "Logout"
@@ -251,30 +251,30 @@ msgstr "Выход"
 #: ../account/templates/login.html:28
 #: ../account/templates/reset_password.html:32
 msgid "Login"
-msgstr ""
+msgstr "Вход"
 
 #: ../account/templates/login.html:33
 msgid "Forgot your password?"
-msgstr ""
+msgstr "Забыли пароль?"
 
 #: ../account/templates/login.html:34
 msgid "Need an account? Register free."
-msgstr ""
+msgstr "Need an account? Register free."
 
 #: ../account/templates/register.html:3 ../account/templates/register.html:7
 #: ../account/templates/register.html:27
 msgid "Register"
-msgstr ""
+msgstr "Регистация"
 
 #: ../account/templates/register.html:33
 msgid "Already have an account, Login Please."
-msgstr ""
+msgstr "Already have an account, Login Please"
 
 #: ../account/templates/reset_password.html:3
 #: ../account/templates/reset_password.html:7
 #: ../account/templates/reset_password.html:27
 msgid "Reset Password"
-msgstr ""
+msgstr "Reset Password"
 
 #: ../templates/admin/index.html:10
 msgid "Howdy"
@@ -290,17 +290,17 @@ msgstr "Профиль"
 
 #: ../templates/admin/model/editor.html:9
 msgid "Upload Image"
-msgstr ""
+msgstr "Upload Image"
 
 #: ../templates/admin/model/editor.html:12
 msgid "Attach Images by dropping them here or selecting one"
-msgstr ""
+msgstr "Attach Images by dropping them here or selecting one"
 
 #: ../templates/admin/model/editor.html:21
 msgid "Cancel"
-msgstr ""
+msgstr "Cancel"
 
 #: ../templates/admin/model/editor.html:22
 msgid "Submit"
-msgstr ""
+msgstr "Submit"
 
