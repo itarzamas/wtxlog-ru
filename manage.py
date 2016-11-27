@@ -5,14 +5,14 @@ import os
 import sys
 from os import path
 
-deps_paths = [
-    path.join(path.split(path.realpath(__file__))[0], 'deps'),
-    path.join(path.split(path.realpath(__file__))[0], 'mydeps'),
-]
+#deps_paths = [
+#    path.join(path.split(path.realpath(__file__))[0], 'deps'),
+#    path.join(path.split(path.realpath(__file__))[0], 'mydeps'),
+#]
 
-for deps_path in deps_paths:
-    if deps_path not in sys.path:
-        sys.path.insert(0, deps_path)
+#for deps_path in deps_paths:
+#    if deps_path not in sys.path:
+#        sys.path.insert(0, deps_path)
 
 COV = None
 if os.environ.get('FLASK_COVERAGE'):

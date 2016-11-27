@@ -1,8 +1,8 @@
 {% extends theme('layout.html') %}
 
-{% block title %}搜索: {{ keyword }}{% if pagination and pagination.page>1 %}_第{{ pagination.page }}页{% endif %}{% endblock %}
+{% block title %}поиск: {{ keyword }}{% if pagination and pagination.page>1 %}_Статья{{ pagination.page }}страница{% endif %}{% endblock %}
 
-{% block crumb %}搜索: <em>{{ keyword }}</em>{% endblock %}
+{% block crumb %}поиск: <em>{{ keyword }}</em>{% endblock %}
 
 {% block main %}
   <h2>Search Results for {{ keyword }}</h2>

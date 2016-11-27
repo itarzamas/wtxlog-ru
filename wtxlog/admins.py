@@ -126,11 +126,11 @@ class ArticleAdmin(sqla.ModelView):
             model.last_modified = datetime.now()
 
     def after_model_change(self, form, model, is_created):
-        # 如果发布新文章，则PING通知百度
+        # Если вы публикуете новую статью, уведомление PING Baidu
         if is_created and model.published:
             baidu_ping(model.link)
 
-        # 清除缓存，以便可以看到最新内容
+        # Очистите кэш, так что вы можете увидеть последнее содержание
         cache_delete(model.shortlink)
 
     def is_accessible(self):
@@ -141,7 +141,8 @@ class ArticleAdmin(sqla.ModelView):
         for id in ids:
             obj = Article.query.get(id)
             baidu_ping(obj.link)
-        flash(u'PING请求已发送，请等待百度处理')
+            flash(u'PING  Запрос был отправлен, пожалуйста, подождите Baidu Обработка')
+            #flash(u'PING请求已发送，请等待百度处理')
 
 
 class CategoryAdmin(sqla.ModelView):
@@ -260,7 +261,7 @@ class TagAdmin(sqla.ModelView):
                 model.seokey = model.name
 
     def after_model_change(self, form, model, is_created):
-        # 中文的路径特别需要注意
+        # Китайский путь требует особого внимания
         cache_delete(model.shortlink)
 
     def is_accessible(self):

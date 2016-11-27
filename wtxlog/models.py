@@ -25,12 +25,17 @@ pattern_hasmore = re.compile(r'<!--more-->', re.I)
 
 def markitup(text):
     """
-    把Markdown转换为HTML
+   Преобразование HTML в Markdown
 
-    默认不生成高亮代码。
+     Подсветка кода не генерирует по умолчанию
 
-    若需要生成高亮代码，需在Setting增加codehilite设置值，类型为int，
-    值大于0. 另外需要安装Pygments。
+     Если вам необходимо сгенерировать код на первый план, необходимо увеличить настройку
+codehilite
+Установите значение типа
+INT,
+  
+   Значение больше 0. Также нужно установить
+Pygments.
     """
     try:
         _flag = Setting.get('codehilite', False) and True
@@ -40,18 +45,18 @@ def markitup(text):
 
 
 class Permission:
-    '''定义角色拥有的权限'''
+    ''' Определение привилегий '''
 
-    #: 写的文章是草稿，不公开
+    #:Право написания статей, без права публикации
     WRITE_ARTICLES = 0x04
 
-    #: 可以公开文章
+    #: Статьи могут быть опубликованы
     PUBLISH_ARTICLES = 0x08
 
-    #: 上传文件
+    #: Права на загрузку файлов
     UPLOAD_FILES = 0x10
 
-    #: 管理后台的权限
+    #: Права администратора
     ADMINISTER = 0x80
 
 
@@ -123,10 +128,10 @@ class User(UserMixin, db.Model):
     @staticmethod
     def authenticate(username, password):
         """
-        验证用户
+        Проверка пользователя
 
-        :param username: 用户名或者电子邮件地址
-        :param password: 用户密码
+        :param username: Имя пользователя или адрес электронной почты
+        :param password: пароль пользователя
         """
         user = User.query.filter(db.or_(User.username == username,
                                         User.email == username)).first()
@@ -267,7 +272,7 @@ article_tags_table = db.Table(
 
 
 class Category(db.Model):
-    """目录"""
+    """каталог (категория)"""
 
     __tablename__ = "categories"
 
@@ -328,7 +333,7 @@ class Category(db.Model):
 
     @staticmethod
     def tree():
-        """树形列表"""
+        """TreeList"""
         cates = Category.query.all()
         out = []
         for cate in cates:
@@ -344,12 +349,12 @@ class Category(db.Model):
             target.body_html = markitup(value)
 
     def on_changed_longslug(target, value, oldvalue, initiator):
-        '''如果栏目有子栏目，则不允许更改longslug，因为会造成longslug不一致'''
+        '''Если столбцы подстолбцах, вы не можете изменитьlongslug，Это может привести к longslug непоследовательный'''
         if target.children and value != oldvalue:
             raise Exception('Category has children, longslug can not be change!')
 
     def gen_longslug(self):
-        '''生成longslug'''
+        '''генерироватьlongslug'''
         if self.parent:
             _longslug = '/'.join([self.parent.longslug, self.slug]).lower()
         else:
@@ -361,7 +366,7 @@ class Category(db.Model):
         target.gen_longslug()
 
         _c = Category.query.filter_by(longslug=target.longslug).first()
-        # 新增时判断longslug是否重复
+        # Когда новый судья longslug Независимо от того, чтобы повторить
         if _c:
             raise Exception('Category longslug "%s" already exist' % _c.longslug)
 
@@ -370,7 +375,7 @@ class Category(db.Model):
         target.gen_longslug()
 
         _c = Category.query.filter_by(longslug=target.longslug).first()
-        # 更新时判断longslug是否重复
+        # Определить, является ли дубликат обновления longslug
         if _c and _c.id != target.id:
             raise Exception('Category longslug "%s" already exist' % _c.longslug)
 
@@ -388,7 +393,7 @@ class TagQuery(BaseQuery):
 
 
 class Tag(db.Model):
-    """标签"""
+    """Этикетка (Tag)"""
 
     __tablename__ = "tags"
 
@@ -439,7 +444,7 @@ db.event.listen(Tag.body, 'set', Tag.on_changed_body)
 
 
 class Topic(db.Model):
-    """专题"""
+    """Тема """
 
     __tablename__ = "topics"
 
@@ -513,7 +518,7 @@ class ArticleQuery(BaseQuery):
 
 
 class Article(db.Model):
-    """贴文"""
+    """Сообщения (статья)"""
 
     __tablename__ = "articles"
 
@@ -601,7 +606,8 @@ class Article(db.Model):
 
         value = target.body
         if target.summary is None or target.summary.strip() == '':
-            # 新增文章时，如果 summary 为空，则自动生成
+            # Когда вы добавляете статью, если summary пуст, автоматически генерируется
+            # !!!!!!!!!!!!!!!!!!!!!!!!!
             if BODY_FORMAT == 'html':
                 target.summary = _format(value)
             else:
@@ -624,7 +630,7 @@ db.event.listen(Article, 'before_insert', Article.before_insert)
 
 
 class Link(db.Model):
-    """内部链接"""
+    """Внутренние ссылки"""
 
     __tablename__ = 'links'
 
@@ -644,7 +650,7 @@ class Link(db.Model):
 
 
 class FriendLink(db.Model):
-    """友情链接"""
+    """ссылки на друзей (связи)"""
 
     __tablename__ = 'friendlinks'
 
@@ -666,7 +672,7 @@ class FriendLink(db.Model):
 
 
 class Flatpage(db.Model):
-    """单页面"""
+    """Одна страница(плоская)"""
 
     __tablename__ = 'flatpages'
 
@@ -707,7 +713,7 @@ db.event.listen(Flatpage.body, 'set', Flatpage.on_changed_body)
 
 
 class Label(db.Model):
-    """HTML代码片断"""
+    """HTML фрагмент"""
 
     __tablename__ = 'labels'
 
@@ -726,7 +732,7 @@ class Label(db.Model):
 
 
 class Redirect(db.Model):
-    """重定向"""
+    """Перенаправление (редирект)"""
 
     __tablename__ = 'redirects'
 

@@ -10,14 +10,14 @@ datadir = 'data'
 
 class Config:
 
-    THEME = os.getenv('THEME') or 'imtx'
-    SITE_NAME = os.getenv('SITE_NAME')or u'wtxlog'
+    THEME = os.getenv('THEME') or 'itarzamas'
+    SITE_NAME = os.getenv('SITE_NAME')or u'localhost'
 
     # 是否启用博客模式True
-    BLOG_MODE = False
+    BLOG_MODE = True
 
-    # html or markdown
-    BODY_FORMAT = os.getenv('BODY_FORMAT') or 'html'
+    # html or markdown 
+    BODY_FORMAT = os.getenv('BODY_FORMAT') or 'HTML'
 
     # tip: generate `SECRET_KEY` by `os.urandom(24)`
     SECRET_KEY = os.getenv('SECRET_KEY') or 'hard to guess string'
