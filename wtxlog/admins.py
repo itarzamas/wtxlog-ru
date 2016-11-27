@@ -522,7 +522,8 @@ admin.add_view(TopicAdmin(Topic, db.session, name=_('Topic')))
 admin.add_view(CategoryAdmin(Category, db.session, name=_('Category')))
 admin.add_view(TagAdmin(Tag, db.session, name=_('Tag')))
 admin.add_view(ArticleAdmin(Article, db.session, name=_('Article')))
-admin.add_view(FlatpageAdmin(Flatpage, db.session, name=_('Flatpage')))
+#admin.add_view(FlatpageAdmin(Flatpage, db.session, name=_('Flatpage')))
+admin.add_view(FlatpageAdmin(Flatpage, db.session, name=('Flatpage')))
 
 admin.add_view(LabelAdmin(Label, db.session, name=_('Snippet')))
 

@@ -22,7 +22,6 @@ BODY_FORMAT = Config.BODY_FORMAT
 
 pattern_hasmore = re.compile(r'<!--more-->', re.I)
 
-
 def markitup(text):
     """
    Преобразование HTML в Markdown
