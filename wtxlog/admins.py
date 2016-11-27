@@ -98,9 +98,9 @@ class ArticleAdmin(sqla.ModelView):
         seokey=_('SEO Keyword'),
         seodesc=_('SEO Description'),
         thumbnail=_('Thumbnail'),
-        thumbnail_big=_('Big Thumbnail'),
-        template=_('Template'),
-        created=_('Created'),
+        thumbnail_big=('Big Thumbnail'),
+        template=('Template'),
+        created=('Created'),
         view_on_site=_('View on Site'),
     )
 
@@ -166,11 +166,11 @@ class CategoryAdmin(sqla.ModelView):
         longslug=_('LongSlug'),
         name=_('Name'),
         seotitle=_('SEOTitle'),
-        body=_('Body'),
+        body=('Body'),
         seokey=_('SEO Keyword'),
         seodesc=_('SEO Description'),
-        thumbnail=_('Thumbnail'),
-        template=_('Template'),
+        thumbnail=('Thumbnail'),
+        template=('Template'),
         article_template=_('Template of Articles'),
         view_on_site=_('View on Site'),
     )
