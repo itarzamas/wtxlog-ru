@@ -33,5 +33,8 @@
   {% endfor %}
 </ul>
 {% endif %}
+{%block admin_bl %}
+ {% if current_user.is_administrator  %}hello admin {% endif %}
+{% endblock %}
 {% endwith %}
 {% endblock %}

@@ -47,7 +47,7 @@ def configure_custom_settings(app):
 def create_app(config_name):
     app = Flask(__name__)
     app.config.from_object(config[config_name])
-
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
     db.init_app(app)
     db.app = app
 
