@@ -10,7 +10,7 @@ from flask import request, url_for, redirect, current_app, make_response, abort
 from werkzeug.contrib.atom import AtomFeed
 from werkzeug._compat import to_bytes
 from webhelpers.paginate import Page, PageURL
-from flask.ext.mobility.decorators import mobile_template
+from flask_mobility.decorators import mobile_template
 
 from ..decorators import permission_required
 from ..utils.helpers import render_template, get_category_ids, page_url

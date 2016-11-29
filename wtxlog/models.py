@@ -8,11 +8,9 @@ from werkzeug import cached_property
 from werkzeug.security import generate_password_hash, check_password_hash
 from itsdangerous import URLSafeTimedSerializer as Serializer
 from jinja2.filters import do_striptags, do_truncate
-
-from flask.ext.sqlalchemy import BaseQuery
-
+from flask_sqlalchemy import BaseQuery
 from flask import current_app, request, url_for
-from flask.ext.login import UserMixin, AnonymousUserMixin
+from flask_login import UserMixin, AnonymousUserMixin
 
 from .ext import db, keywords_split, to_bytes
 from .utils.filters import markdown_filter
@@ -25,9 +23,7 @@ pattern_hasmore = re.compile(r'<!--more-->', re.I)
 def markitup(text):
     """
    Преобразование HTML в Markdown
-
      Подсветка кода не генерирует по умолчанию
-
      Если вам необходимо сгенерировать код на первый план, необходимо увеличить настройку
 codehilite
 Установите значение типа
