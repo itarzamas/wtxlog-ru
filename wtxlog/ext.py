@@ -5,11 +5,11 @@ import datetime
 from urllib2 import quote
 from flask import current_app, request, redirect, url_for
 from functools import wraps
-from flask.ext.babelex import Babel
-from flask.ext.cache import Cache as FlaskCache
-from flask.ext.mail import Mail, Message
-from flask.ext.sqlalchemy import SQLAlchemy
-from flask.ext.login import LoginManager
+from flask_babelex import Babel
+from flask_cache import Cache as FlaskCache
+from flask_mail import Mail, Message
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
 from werkzeug._compat import text_type, to_bytes
 
 
