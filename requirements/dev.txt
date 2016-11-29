@@ -1,3 +1,4 @@
 -r common.txt
 coverage
 flask-debug
+flask-debugtoolbar
