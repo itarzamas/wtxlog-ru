@@ -12,6 +12,8 @@ from werkzeug._compat import to_bytes
 from webhelpers.paginate import Page, PageURL
 from flask_mobility.decorators import mobile_template
 
+from flask_login import current_user
+
 from ..decorators import permission_required
 from ..utils.helpers import render_template, get_category_ids, page_url
 from ..utils.upload import SaveUploadFile

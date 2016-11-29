@@ -90,12 +90,13 @@ class Config:
 
 
 class DevelopmentConfig(Config):
-    CACHE_TYPE = 'filesystem'
+#    CACHE_TYPE = 'filesystem'
+    CACHE_TYPE = 'null'
     CACHE_DIR = os.path.join(basedir, datadir, 'cache')
 
     DEBUG = True
 
-    SQLALCHEMY_ECHO = True
+    SQLALCHEMY_ECHO = False
 
     SQLALCHEMY_DATABASE_URI = os.getenv('DEV_DATABASE_URI') or \
         'sqlite:///%s' % os.path.join(basedir, 'data_dev_sqlite.db')
@@ -120,7 +121,8 @@ class BAEConfig(Config):
     BAE_SK = os.getenv('BAE_SK') or ''
 
     # BAE MEMCACHE
-    CACHE_TYPE = 'wtxlog.ext.baememcache'
+#    CACHE_TYPE = 'wtxlog.ext.baememcache'
+    CACHE_TYPE = 'null'
     CACHE_BAE_USERNAME = BAE_AK
     CACHE_BAE_PASSWORD = BAE_SK
     CACHE_BAE_SERVERS = os.getenv('CACHE_BAE_SERVERS') or 'cache.duapp.com:20243'
@@ -160,7 +162,7 @@ class SAEConfig(Config):
     # 需要先在控制面板启用Memcached服务，否则会报错
     # 调试阶段，可以注释掉，或者改为其它类型，比如 simple
     CACHE_TYPE = 'memcached'
-
+    CACHE_TYPE = 'null'
     try:
         from sae.const import (
             MYSQL_HOST, MYSQL_PORT, MYSQL_USER, MYSQL_PASS, MYSQL_DB
@@ -179,7 +181,8 @@ class SAEConfig(Config):
 
 class JAEConfig(Config):
 
-    CACHE_TYPE = 'simple'
+#    CACHE_TYPE = 'simple'
+    CACHE_TYPE = 'null'
 
     # mysql configuration
     MYSQL_USER = os.getenv('MYSQL_USER') or ''

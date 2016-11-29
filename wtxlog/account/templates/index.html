@@ -5,7 +5,7 @@
 {% block body %}
 
 <div>
-{% if not current_user.is_anonymous() %}
+{% if not current_user.is_anonymous %}
    <p><img src="{{ current_user.gravatar() }}" /></p>
 
     <h1>
