@@ -18,7 +18,7 @@
 {# notself Это правда, без ссылки на части страницы  #}
 {% macro nav_by_category(category, notself=False) -%}
 {% for cate in category.parents -%}
-{% if notself and cate == category %}{{ cate.name }}{% else %}<a href="{{ cate.link }}">{{ cate.name }}</a>{% endif %}{% if not loop.last %}<b>&#187;</b>{% endif %}
+{% if notself and cate == category %}{{ cate.name }}{% else %}<a href="{{ cate.link }}">{{ cate.name }}</a>{% endif %}{% if not loop.last %}<b>bums</b>{% endif %}
 {% endfor -%}
 {%- endmacro %}
 {# Панировочные сухари конец  #}
@@ -92,9 +92,7 @@
         <div id="sidebar">
           {% block sidebar %}
           <h2>Wechat</h2>
-    <p align="center"><img width="180px" height="180px" src="{{ theme_static('images/digwtx-qrcode.png') }}" alt="digwtx-wechat-qrcode"/></p> --!>
-
-          {% set cate = None %}
+              {% set cate = None %}
           {% if article %}{% set cate = article.category %}{% endif %}
           {% if category %}{% set cate = category %}{% endif %}
 
