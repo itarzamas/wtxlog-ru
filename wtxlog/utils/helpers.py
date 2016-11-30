@@ -2,7 +2,7 @@
 
 import xmlrpclib
 from flask import current_app, request, url_for
-from flask.ext.themes import render_theme_template, get_theme
+from flask_themes2 import render_theme_template, get_theme
 from ..models import Category
 
 
@@ -15,7 +15,7 @@ def render_template(template, **context):
 
 
 def get_category_ids(longslug=''):
-    """"返回指定longslug开头的所有栏目的ID列表"""
+    """"ID список назад к началу всех столбцов, указанных longslug"""
     cates = Category.query.filter(Category.longslug.startswith(longslug))
     if cates:
         return [cate.id for cate in cates.all()]
@@ -24,7 +24,7 @@ def get_category_ids(longslug=''):
 
 
 def page_url(page):
-    """根据页码返回URL"""
+    """Назад к номеру страницыL"""
     _kwargs = request.view_args
     if 'page' in _kwargs:
         _kwargs.pop('page')
@@ -37,21 +37,22 @@ def baidu_ping(url):
     """
     :ref: http://zhanzhang.baidu.com/tools/ping
 
-    发送给百度Ping服务的XML-RPC客户请求需要包含如下元素：
-    RPC端点： http://ping.baidu.com/ping/RPC2
-    调用方法名： weblogUpdates.extendedPing
-    参数： (应按照如下所列的相同顺序传送)
-    博客名称
-    博客首页地址
-    新发文章地址
-    博客rss地址
+    ОтправитьPing используя XML-RPC Запрос клиента должен включать в себя следующие элементы:
+    RPC Endpoint： http://ping.baidu.com/ping/RPC2
+    Назовите имя метода: weblogUpdates.extendedPing
+
+     Параметры: (которые должны быть переданы в том же порядке, как указано ниже)
+     название блога
+     Блог Домашний адрес
+     Новый адрес для волос статьи
+     Адрес блога RSS
     """
 
     result = 1
     rpc_server = xmlrpclib.ServerProxy('http://ping.baidu.com/ping/RPC2')
 
     try:
-        # 返回0表示提交成功
+        # Возвращает 0 успешно отправлен
         current_app.logger.info('begin to ping baidu: <%s>' % url)
         result = rpc_server.weblogUpdates.extendedPing(
             current_app.config.get('SITE_NAME'),

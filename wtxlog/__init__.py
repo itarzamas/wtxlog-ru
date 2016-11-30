@@ -1,15 +1,14 @@
 # -*- coding: utf-8 -*-
-
 import os
 from flask import Flask, send_from_directory
-from flask.ext.themes import setup_themes
-from flask.ext.mobility import Mobility
+from flask_theme  import setup_themes
+from flask_mobility import Mobility
 from config import config
 from ext import babel, cache, db, mail, login_manager
 from models import User, AnonymousUser, Setting
 
-# 默认是basic, strong这个强度在BAE3下造成登陆几秒之后就退出的现象
-# 而JAE,SAE上不会出现, 也有可能是应用引擎环境的问题, 暂时使用默认值
+# Значение по умолчанию basic, strong Результате прочность после посадки несколько секунд, чтобы выйти на BAE3 явления
+# И JAE,SAE На не появляются, может быть среда двигателя проблема приложения, временно использовать значения по умолчанию
 # login_manager.session_protection = 'strong'
 login_manager.login_view = 'account.login'
 login_manager.anonymous_user = AnonymousUser
@@ -48,7 +47,7 @@ def configure_custom_settings(app):
 def create_app(config_name):
     app = Flask(__name__)
     app.config.from_object(config[config_name])
-
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
     db.init_app(app)
     db.app = app
 
@@ -71,7 +70,10 @@ def create_app(config_name):
 
     from .api import api as api_blueprint
     app.register_blueprint(api_blueprint, url_prefix='/api')
-
+    
+    from .myapi import myapi as myapi_blueprint
+    app.register_blueprint(myapi_blueprint, url_prefix='/myapi')
+    
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
 

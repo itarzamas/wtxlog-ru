@@ -7,7 +7,7 @@
 <link href="{{ url_for('admin.static', filename='bootstrap/css/bootstrap.css') }}" rel="stylesheet">
 <link href="{{ url_for('admin.static', filename='bootstrap/css/bootstrap-responsive.css') }}" rel="stylesheet">
 </head>
-{# 定义导航菜单 #}
+{# Пользовательские меню Навигация #}
 {% set navigation_bar = [
     (url_for('account.index'), 'index', _('Index'), 0),
 	(url_for('admin.index'), 'admin', _('Admin'), 2),
@@ -17,8 +17,8 @@
 ] -%}
 {% set active_page = active_page|default('index') -%}
 {% set permission = 0 %}
-{% if current_user.is_authenticated() %}{% set permission = 1 %}{% endif %}
-{% if current_user.is_administrator() %}{% set permission = 2 %}{% endif %}
+{% if current_user.is_authenticated %}{% set permission = 1 %}{% endif %}
+{% if current_user.is_administrator %}{% set permission = 2 %}{% endif %}
 <body>
   <div class="container">
   <div class="navbar">

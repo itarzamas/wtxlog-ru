@@ -1,2 +1,4 @@
 -r common.txt
-coverage==3.7.1
+coverage
+flask-debug
+flask-debugtoolbar

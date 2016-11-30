@@ -2,12 +2,12 @@
 
 from datetime import datetime
 from flask import redirect, url_for, Markup, flash
-from flask.ext.babelex import lazy_gettext as _
-from flask.ext.login import current_user, login_required
-from flask.ext.admin import Admin, AdminIndexView, expose
-from flask.ext.admin.contrib import sqla
-from flask.ext.admin.actions import action
-from flask.ext.admin.form.fields import Select2Field
+from flask_babelex import lazy_gettext as _
+from flask_login import current_user, login_required
+from flask_admin import Admin, AdminIndexView, expose
+from flask_admin.contrib import sqla
+from flask_admin.actions import action
+from flask_admin.form.fields import Select2Field
 from webhelpers.html import HTML
 from webhelpers.html.tags import link_to
 
@@ -50,9 +50,9 @@ class MyAdminIndexView(AdminIndexView):
     @expose('/')
     @login_required
     def index(self):
-        if not current_user.is_authenticated():
+        if not current_user.is_authenticated:
             return redirect(url_for('account.login'))
-        if not current_user.is_administrator():
+        if not current_user.is_administrator:
             return redirect(url_for('account.index'))
         return super(MyAdminIndexView, self).index()
 
@@ -98,9 +98,9 @@ class ArticleAdmin(sqla.ModelView):
         seokey=_('SEO Keyword'),
         seodesc=_('SEO Description'),
         thumbnail=_('Thumbnail'),
-        thumbnail_big=_('Big Thumbnail'),
-        template=_('Template'),
-        created=_('Created'),
+        thumbnail_big=('Big Thumbnail'),
+        template=('Template'),
+        created=('Created'),
         view_on_site=_('View on Site'),
     )
 
@@ -126,11 +126,11 @@ class ArticleAdmin(sqla.ModelView):
             model.last_modified = datetime.now()
 
     def after_model_change(self, form, model, is_created):
-        # 如果发布新文章，则PING通知百度
+        # Если вы публикуете новую статью, уведомление PING Baidu
         if is_created and model.published:
             baidu_ping(model.link)
 
-        # 清除缓存，以便可以看到最新内容
+        # Очистите кэш, так что вы можете увидеть последнее содержание
         cache_delete(model.shortlink)
 
     def is_accessible(self):
@@ -141,7 +141,8 @@ class ArticleAdmin(sqla.ModelView):
         for id in ids:
             obj = Article.query.get(id)
             baidu_ping(obj.link)
-        flash(u'PING请求已发送，请等待百度处理')
+            flash(u'PING  Запрос был отправлен, пожалуйста, подождите Baidu Обработка')
+            #flash(u'PING请求已发送，请等待百度处理')
 
 
 class CategoryAdmin(sqla.ModelView):
@@ -165,11 +166,11 @@ class CategoryAdmin(sqla.ModelView):
         longslug=_('LongSlug'),
         name=_('Name'),
         seotitle=_('SEOTitle'),
-        body=_('Body'),
+        body=('Body'),
         seokey=_('SEO Keyword'),
         seodesc=_('SEO Description'),
-        thumbnail=_('Thumbnail'),
-        template=_('Template'),
+        thumbnail=('Thumbnail'),
+        template=('Template'),
         article_template=_('Template of Articles'),
         view_on_site=_('View on Site'),
     )
@@ -260,7 +261,7 @@ class TagAdmin(sqla.ModelView):
                 model.seokey = model.name
 
     def after_model_change(self, form, model, is_created):
-        # 中文的路径特别需要注意
+        # Китайский путь требует особого внимания
         cache_delete(model.shortlink)
 
     def is_accessible(self):
@@ -521,7 +522,8 @@ admin.add_view(TopicAdmin(Topic, db.session, name=_('Topic')))
 admin.add_view(CategoryAdmin(Category, db.session, name=_('Category')))
 admin.add_view(TagAdmin(Tag, db.session, name=_('Tag')))
 admin.add_view(ArticleAdmin(Article, db.session, name=_('Article')))
-admin.add_view(FlatpageAdmin(Flatpage, db.session, name=_('Flatpage')))
+#admin.add_view(FlatpageAdmin(Flatpage, db.session, name=_('Flatpage')))
+admin.add_view(FlatpageAdmin(Flatpage, db.session, name=('Flatpage')))
 
 admin.add_view(LabelAdmin(Label, db.session, name=_('Snippet')))
 

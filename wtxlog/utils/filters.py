@@ -12,12 +12,13 @@ __all__ = ['register_filters', 'markdown_filter']
 
 def markdown_filter(text, codehilite=True):
     """
-    代码高亮可选，有的场合不需要高亮，高亮会生成很多代码
-    但是fenced_code生成的代码是<pre><code>~~~</code></code>包围的
+   Подсветка кода В качестве альтернативы, некоторые ситуации не нужно выделить, выделите будет генерировать много кода
+     однако fenced_code Сгенерированный код
+      <pre><code>~~~</code></code>
     """
     exts = [
         'abbr', 'attr_list', 'def_list', 'sane_lists', 'fenced_code',
-        'tables', 'toc', 'wikilinks', 'joinline',
+        'tables', 'toc', 'extra','wikilinks',
     ]
 
     if codehilite:

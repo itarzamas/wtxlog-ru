@@ -3,7 +3,7 @@
 from . import account
 
 from flask import flash, url_for, redirect, request, render_template
-from flask.ext.login import login_user, logout_user, login_required, current_user
+from flask_login import login_user, logout_user, login_required, current_user
 
 from ..utils.email import send_email
 from ..models import db, User
@@ -25,6 +25,7 @@ def login():
             login_user(user, form.remember_me.data)
             return redirect(request.args.get('next') or url_for('.index'))
         flash(errmsg)
+ 
     return render_template('login.html', form=form)
 
 

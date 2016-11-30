@@ -14,22 +14,22 @@
     {% block head_extend %}{% endblock %}
   </head>
 
-{# Иерархическая навигация начинается  面包屑导航开始 #}
-{# notself Это правда, без ссылки на части страницы 为真则不加链接，用于栏目页 #}
+{# Иерархическая навигация начинается   #}
+{# notself Это правда, без ссылки на части страницы  #}
 {% macro nav_by_category(category, notself=False) -%}
 {% for cate in category.parents -%}
-{% if notself and cate == category %}{{ cate.name }}{% else %}<a href="{{ cate.link }}">{{ cate.name }}</a>{% endif %}{% if not loop.last %}<b>&#187;</b>{% endif %}
+{% if notself and cate == category %}{{ cate.name }}{% else %}<a href="{{ cate.link }}">{{ cate.name }}</a>{% endif %}{% if not loop.last %}<b>bums</b>{% endif %}
 {% endfor -%}
 {%- endmacro %}
-{# Панировочные сухари конец 面包屑导航结束 #}
+{# Панировочные сухари конец  #}
 
-{# LOGO код начало  部分代码开始 #}
+{# LOGO код начало   #}
 {% macro logo() -%}
 <a href="{{ url_for('main.index') }}" title="{{ config['SITE_NAME'] }}"><span class="none">{{ config['SITE_NAME'] }}</span></a>
 {% endmacro %}
-{# LOGO конец 部分代码结束 #}
+{# LOGO конец  #}
 
-{# Определение меню навигации 定义导航菜单 #}
+{# Определение меню навигации #}
 {% set navigation_bar = [
     (url_for('main.index'), 'index', 'Home'),
     (url_for('main.topics'), 'topics', 'Topics'),
@@ -72,13 +72,16 @@
             </ul>
 
             <div class="title">
-              <h2 class="topic"><a href="/archives/1859.html" rel="bookmark" title="Permanent Link to Ubuntu Tweak 0.8.6 正式发布：支持Ubuntu 13.10">Ubuntu Tweak 0.8.6 正式发布：支持Ubuntu 13.10</a></h2>
-              <span class="postmeta">Post by TualatriX at 2013 . Category: <a href="/archives/category/applications/">Applications</a>.  359 Views. <a href="/archives/1859.html#comments">2 Comments </a> </span></div>
+              <h2 class="topic">
+			  <a href="/archives/1859.html" rel="bookmark" title="Permanent Link to Ubuntu Tweak 0.8.6 Формула выхода: Поддержка Ubuntu 13.10">Ubuntu Tweak 0.8.6 Год выхода: Поддержка Ubuntu 13.10</a>
+			  </h2>
+              <span class="postmeta">Post by TualatriX at 2013 . Category: <a href="/archives/category/applications/">Applications</a>.  359 Views. <a href="/archives/1859.html#comments">2 Comments </a> </span>
+			  </div>
 
             <div class="clear"></div>
             <div class="entry">
 
-              <p> <a href="/archives/1859.html#more-1859">Read More...</a>
+              <p> <a href="/archives/1859.html#more-1859">Read More...</a></p>
 
             </div>
           </div>
@@ -89,9 +92,7 @@
         <div id="sidebar">
           {% block sidebar %}
           <h2>Wechat</h2>
-          <p align="center"><img width="180px" height="180px" src="{{ theme_static('images/digwtx-qrcode.png') }}" alt="digwtx-wechat-qrcode"/></p>
-
-          {% set cate = None %}
+              {% set cate = None %}
           {% if article %}{% set cate = article.category %}{% endif %}
           {% if category %}{% set cate = category %}{% endif %}
 
@@ -133,7 +134,7 @@
           <h2>Categories</h2>
           <ul>
             {%- for tree in trees %}
-            <li>{{ tree[0] * '----' }}<a href="{{ tree[1].link|e }}">{{ tree[1].name|e }}</a>({{ tree[1].count }})</li>
+            <li>{{ tree[0] }}<a href="{{ tree[1].link|e }}">{{ tree[1].name|e }}</a>({{ tree[1].count }})</li>
             {%- endfor %}
           </ul>
           {% endif %}
@@ -167,7 +168,7 @@
         - <a href="{{ url_for('main.sitemap') }}">Sitemap</a>
         <br/>
         Powered by <a href="http://flask.pocoo.org" target="_blank" rel="external nofollow">Flask</a> |
-    Theme designed By <a href="http://imtx.me/" target="_blank" rel="nofollow">IMTX</a> & <a href="http://www.hoofei.com/" rel="nofollow" target="_blank">Hoofei</a>
+    Theme designed By <a href="http://it-arzamas.ru/" target="_blank" rel="nofollow">ITARZAMAS</a>
         </p>
       </div>
       {% endblock %}
@@ -178,5 +179,9 @@
     <script language="javascript" type="text/javascript" src="{{ theme_static('js/jquery-1.8.3.min.js') }}"></script>
     <script language="javascript" type="text/javascript" src="{{ theme_static('js/util.js') }}"></script>
     {% block tail %}{% endblock %}
-  </body>
+{%block admin_bl %}
+ {% if current_user.is_anonimus  %}hello admin {% endif %}
+ 
+{% endblock %}
+	</body>
 </html>

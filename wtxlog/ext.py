@@ -5,11 +5,11 @@ import datetime
 from urllib2 import quote
 from flask import current_app, request, redirect, url_for
 from functools import wraps
-from flask.ext.babelex import Babel
-from flask.ext.cache import Cache as FlaskCache
-from flask.ext.mail import Mail, Message
-from flask.ext.sqlalchemy import SQLAlchemy
-from flask.ext.login import LoginManager
+from flask_babelex import Babel
+from flask_cache import Cache as FlaskCache
+from flask_mail import Mail, Message
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
 from werkzeug._compat import text_type, to_bytes
 
 
@@ -26,8 +26,8 @@ def keywords_split(keywords):
 class MySMTPHandler(logging.Handler):
     """
     A handler class which sends an SMTP email for each logging event.
-
-    默认不支持SSL协议的，增加参数use_ssl，如果使用SSL，则使用SMTP_SSL
+     Значение по умолчанию не поддерживает протокол SSL, добавление параметров
+    use_ssl, если вы используете SSL, вы используете SMTP_SSL
     """
     def __init__(self, mailhost, fromaddr, toaddrs, subject,
                  credentials=None, secure=None, use_ssl=False):
@@ -174,8 +174,8 @@ class WtxlogCache(FlaskCache):
         def decorator(f):
             @wraps(f)
             def decorated_function(*args, **kwargs):
-                # 如果是第一页，跳转到标准页面
-                # 比如： `/page/1/` 跳转到 `/`
+                # Если это первая страница, перейти на стандартную страницу
+                # такой как： `/page/1/` Перейти к `/`
                 _kw = request.view_args
                 if 'page' in _kw and _kw['page'] == 1:
                     _kw.pop('page')
@@ -199,7 +199,7 @@ class WtxlogCache(FlaskCache):
                 if rv is None:
                     rv = f(*args, **kwargs)
 
-                    # 添加缓存时间信息
+                    # Добавление информации о времени кэша
                     _suffix = u"\n<!-- cached at %s -->" % str(datetime.datetime.now())
                     if hasattr(rv, "data"):
                         rv.data = '%s%s' % (rv.data, _suffix)
@@ -219,9 +219,9 @@ class WtxlogCache(FlaskCache):
                 if callable(key_prefix):
                     cache_key = key_prefix()
                 elif '%s' in key_prefix:
-                    # 这里要转换成str(UTF-8)类型, 否则会报类型错误
+                    # Преобразование str(UTF-8)тип ,В противном случае, будет сообщено тип ошибки
                     _path = to_bytes(request.path, 'utf-8')
-                    # 对于非ASCII的URL，需要进行URL编码
+                    # Для не-ASCII URL, должно быть URL-кодированние
                     if quote(_path).count('%25') <= 0:
                         _path = quote(_path)
                     cache_key = key_prefix % _path
@@ -256,4 +256,4 @@ cache = WtxlogCache()
 
 @babel.localeselector
 def get_locale():
-    return request.accept_languages.best_match(['en', 'zh_CN', 'zh_TW'])
+    return request.accept_languages.best_match(['ru', 'ru_RU', 'ru_RU'])

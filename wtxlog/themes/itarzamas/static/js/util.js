@@ -35,7 +35,7 @@ $(window).scroll(function () {
 
 function gethits(id, out)
 {
-  //$('#'+out).html("<img src=\"/_themes/imtx/images/loading.gif\" />");
+  //$('#'+out).html("<img src=\"/_themes/itarzamas/images/loading.gif\" />");
   $.ajax({
     type: "get",
     cache:false,
