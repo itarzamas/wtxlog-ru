@@ -1,6 +1,6 @@
 {% if config['BODY_FORMAT'] == 'html' %}
 <!-- подключаем ckeditor --!>
-    <script src="{{ url_for('static', filename='admin/ckeditor/ckeditor.js') }}"></script>
+    <script src="//cdn.ckeditor.com/4.6.0/standard/ckeditor.js"></script>
 {% else %}
     {% if config['BODY_FORMAT'] == 'markdown' %}
     <!-- image upload modal -->
