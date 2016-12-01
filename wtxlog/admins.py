@@ -5,8 +5,7 @@ from flask import redirect, url_for, Markup, flash
 from flask_babelex import lazy_gettext as _
 from flask_login import current_user, login_required
 from flask_admin import Admin, AdminIndexView, expose
-#from flask_admin.contrib import sqla flask.ext.admin.contrib.sqlamodel
-from flask_admin.contrib import  sqlamodel as sqla
+from flask_admin.contrib import  sqla
 
 from flask_admin.actions import action
 from flask_admin.form.fields import Select2Field

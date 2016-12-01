@@ -1,2 +1,2 @@
 #!/bin/sh
-python manage.py debug
+python manage.py runserver
