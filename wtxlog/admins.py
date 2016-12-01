@@ -128,8 +128,8 @@ class ArticleAdmin(sqla.ModelView):
 
     def after_model_change(self, form, model, is_created):
         # Если вы публикуете новую статью, уведомление PING Baidu
-        if is_created and model.published:
-            baidu_ping(model.link)
+ #       if is_created and model.published:
+ #           baidu_ping(model.link)
 
         # Очистите кэш, так что вы можете увидеть последнее содержание
         cache_delete(model.shortlink)
@@ -514,6 +514,8 @@ class SettingAdmin(sqla.ModelView):
 
 
 # init
+
+
 admin = Admin(index_view=MyAdminIndexView(),
               name=_('Admin'),
               base_template="admin/my_master.html")
@@ -522,7 +524,9 @@ admin = Admin(index_view=MyAdminIndexView(),
 admin.add_view(TopicAdmin(Topic, db.session, name=_('Topic')))
 admin.add_view(CategoryAdmin(Category, db.session, name=_('Category')))
 admin.add_view(TagAdmin(Tag, db.session, name=_('Tag')))
-admin.add_view(ArticleAdmin(Article, db.session, name=_('Article')))
+
+admin.add_view(ArticleAdmin(Article, db.session, name=('Article')))
+
 #admin.add_view(FlatpageAdmin(Flatpage, db.session, name=_('Flatpage')))
 admin.add_view(FlatpageAdmin(Flatpage, db.session, name=('Flatpage')))
 
