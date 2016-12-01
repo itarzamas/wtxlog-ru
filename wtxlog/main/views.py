@@ -49,10 +49,7 @@ def index(template, page=1):
         _query = Article.query.public()
         pagination = Page(_query, page=page, items_per_page=Article.PER_PAGE, url=_url)
         articles = pagination.items
-
-        return render_template(_template,
-                               articles=articles,
-                               pagination=pagination)
+        return render_template(_template,articles=articles,pagination=pagination)
     else:
         return render_template(_template)
 

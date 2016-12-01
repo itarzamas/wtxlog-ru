@@ -60,7 +60,7 @@
           <li id="pattern"></li>
         </ul>
       </div>
-      {% block crumbwrap %}<div class="crumb"><a href="{{ url_for('main.index') }}">Home</a><b>&#187;</b>{% block crumb %}{% endblock %}</div>{% endblock %}
+      {% block crumbwrap %}<div class="crumb"><a href="{{ url_for('main.index') }}">Home</a>{% block crumb %}{% endblock %}</div>{% endblock %}
       <div class="contain clear">
         <div id="content" class="narrowcolumn">
           {% block main %}

@@ -5,14 +5,16 @@ from flask import redirect, url_for, Markup, flash
 from flask_babelex import lazy_gettext as _
 from flask_login import current_user, login_required
 from flask_admin import Admin, AdminIndexView, expose
-from flask_admin.contrib import sqla
+#from flask_admin.contrib import sqla flask.ext.admin.contrib.sqlamodel
+from flask_admin.contrib import  sqlamodel as sqla
+
 from flask_admin.actions import action
 from flask_admin.form.fields import Select2Field
 from webhelpers.html import HTML
 from webhelpers.html.tags import link_to
 
 from wtforms.fields import TextAreaField
-from .utils.helpers import baidu_ping
+#from .utils.helpers import baidu_ping
 from .utils.widgets import MarkitupTextAreaField, CKTextAreaField
 from .ext import cache
 from .models import *
@@ -59,7 +61,7 @@ class MyAdminIndexView(AdminIndexView):
 
 # Customized Post model admin
 class ArticleAdmin(sqla.ModelView):
-
+    text="ArticleAdmin"
     create_template = "admin/model/a_create.html"
     edit_template = "admin/model/a_edit.html"
 

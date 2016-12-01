@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wtxlog VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-11-26 13:49+0300\n"
+"POT-Creation-Date: 2016-12-01 15:21+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru_RU\n"
@@ -43,8 +43,7 @@ msgstr "Тема"
 msgid "Tags"
 msgstr "Тэг"
 
-#: ../admins.py:93 ../admins.py:169 ../admins.py:232 ../admins.py:290
-#: ../admins.py:347
+#: ../admins.py:93 ../admins.py:232 ../admins.py:290 ../admins.py:347
 msgid "Body"
 msgstr "содержание"
 
@@ -74,23 +73,9 @@ msgstr "SEO Ключи"
 msgid "SEO Description"
 msgstr "SEO Описание"
 
-#: ../admins.py:100 ../admins.py:172 ../admins.py:235 ../admins.py:293
-#: ../admins.py:350
+#: ../admins.py:100 ../admins.py:235 ../admins.py:293 ../admins.py:350
 msgid "Thumbnail"
 msgstr "Превьюшка"
-
-#: ../admins.py:101
-msgid "Big Thumbnail"
-msgstr "Бол. превьюшка"
-
-#: ../admins.py:102 ../admins.py:173 ../admins.py:236 ../admins.py:294
-#: ../admins.py:351
-msgid "Template"
-msgstr "Темплейт"
-
-#: ../admins.py:103
-msgid "Created"
-msgstr "Создано"
 
 #: ../admins.py:104 ../admins.py:175 ../admins.py:237 ../admins.py:295
 #: ../admins.py:352
@@ -104,7 +89,7 @@ msgstr "Предыдущий"
 #: ../admins.py:165 ../admins.py:229 ../admins.py:287 ../admins.py:344
 #: ../admins.py:427
 msgid "Slug"
-msgstr "Идентификатор"
+msgstr "Slug"
 
 #: ../admins.py:166
 msgid "LongSlug"
@@ -117,6 +102,10 @@ msgstr "Имя"
 #: ../admins.py:174
 msgid "Template of Articles"
 msgstr "Шаблоны для статьи"
+
+#: ../admins.py:236 ../admins.py:294 ../admins.py:351
+msgid "Template"
+msgstr "Темплейт"
 
 #: ../admins.py:383
 msgid "Anchor Text"
@@ -202,27 +191,23 @@ msgstr "Тег"
 msgid "Article"
 msgstr "Статья"
 
-#: ../admins.py:525
-msgid "Flatpage"
-msgstr "Простая страница"
-
-#: ../admins.py:527
+#: ../admins.py:528
 msgid "Snippet"
 msgstr "Сниппет"
 
-#: ../admins.py:529
+#: ../admins.py:530
 msgid "FriendLink"
 msgstr "FriendLink"
 
-#: ../admins.py:530
+#: ../admins.py:531
 msgid "Redirect"
 msgstr "Redirect"
 
-#: ../admins.py:532
+#: ../admins.py:533
 msgid "Setting"
 msgstr "Установки"
 
-#: ../admins.py:534
+#: ../admins.py:535
 msgid "User"
 msgstr "Пользователь"
 
@@ -288,19 +273,28 @@ msgstr "Вернуться"
 msgid "Profile"
 msgstr "Профиль"
 
-#: ../templates/admin/model/editor.html:9
+#: ../templates/admin/model/editor.html:10
 msgid "Upload Image"
 msgstr "Upload Image"
 
-#: ../templates/admin/model/editor.html:12
+#: ../templates/admin/model/editor.html:13
 msgid "Attach Images by dropping them here or selecting one"
 msgstr "Attach Images by dropping them here or selecting one"
 
-#: ../templates/admin/model/editor.html:21
+#: ../templates/admin/model/editor.html:22
 msgid "Cancel"
 msgstr "Cancel"
 
-#: ../templates/admin/model/editor.html:22
+#: ../templates/admin/model/editor.html:23
 msgid "Submit"
 msgstr "Submit"
+
+#~ msgid "Big Thumbnail"
+#~ msgstr "Бол. превьюшка"
+
+#~ msgid "Created"
+#~ msgstr "Создано"
+
+#~ msgid "Flatpage"
+#~ msgstr "Простая страница"
 

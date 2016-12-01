@@ -24,7 +24,8 @@
 }
 
 #bgcontain {
-	width:818px;
+	bgcontain {width:auto; max-width:100%;}
+/*	width:818px; */
 	background:#FFF;
 	border-left:10px solid #405062;
 	border-right:10px solid #405062;
@@ -293,7 +294,7 @@ li.day {
 	margin:3px 0 0 0
 }
 li.month {
-	font-size:12px;
+	font-size:8px;
 	color:#5b9300;
 	font-weight:bold;
 	text-align:center;

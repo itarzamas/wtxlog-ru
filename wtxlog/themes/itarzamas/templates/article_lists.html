@@ -9,8 +9,8 @@
 <div class="post" id="article-{{ article.id }}">
   <ul class="date">
     <li class="day">{{ article.created|date('%d') }}</li>
-    <li class="month">{{ article.created|date('%m') }}месяц</li>
-  </ul>
+    <li class="month">{{ article.created|date('%m') }}&nbsp; месяц</li>
+	  </ul>
 
   <div class="title">
     <h2 class="topic">{% if article.ontop %}[липкий]{% endif %}<a class="keyword" href="{{ article.link }}" rel="bookmark" title="{{ article.title }}">{{ article.title|emphasis(keyword)|safe }}</a></h2>

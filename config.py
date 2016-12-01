@@ -90,8 +90,8 @@ class Config:
 
 
 class DevelopmentConfig(Config):
-#    CACHE_TYPE = 'filesystem'
-    CACHE_TYPE = 'null'
+    CACHE_TYPE = 'filesystem'
+#    CACHE_TYPE = 'null'
     CACHE_DIR = os.path.join(basedir, datadir, 'cache')
 
     DEBUG = True
