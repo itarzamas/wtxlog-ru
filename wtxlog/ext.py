@@ -110,7 +110,10 @@ class MySMTPHandler(logging.Handler):
 class WtxlogCache(FlaskCache):
 
     def init_app(self, app, config=None):
-        super(WtxlogCache, self).init_app(app)
+        #import ipdb
+        #ipdb.set_trace()
+    	# выскакивает варнингс  ExtDeprecationWarning: Importing flask.ext.cache is deprecated, use flask_cache instead
+		super(WtxlogCache, self).init_app(app)
         self.app = app
 
     def cached(self, timeout=None, key_prefix=None, unless=None):
