@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 from flask import Flask, send_from_directory
-from flask_theme  import setup_themes
+from flask_themes2  import Themes
 from flask_mobility import Mobility
 from config import config
 from ext import babel, cache, db, mail, login_manager
@@ -46,6 +46,7 @@ def configure_custom_settings(app):
 
 def create_app(config_name):
     app = Flask(__name__)
+    t = Themes()
     app.config.from_object(config[config_name])
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
     db.init_app(app)
@@ -59,7 +60,7 @@ def create_app(config_name):
     cache.init_app(app)
     login_manager.init_app(app)
     mail.init_app(app)
-    setup_themes(app)
+    t.init_themes(app)
     Mobility(app)
 
     from .utils.filters import register_filters
