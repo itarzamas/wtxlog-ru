@@ -1,5 +1,6 @@
 Wtxlog-ru 
 ===============
+!image:<https://travis-ci.org/itarzamas/wtxlog-ru.svg?branch=dev>
 этот проект разрабатывается в качестве пособия по изучению microframework Flask.
 Он базируется на коде проекта - <https://github.com/wtx358/wtxlog>
 Оригинальный редми файл - <http://wtxlog.readthedocs.org/>
