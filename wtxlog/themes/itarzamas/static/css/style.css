@@ -24,8 +24,8 @@
 }
 
 #bgcontain {
-	bgcontain {width:auto; max-width:100%;}
-/*	width:818px; */
+	width:auto;
+	max-width:100%;
 	background:#FFF;
 	border-left:10px solid #405062;
 	border-right:10px solid #405062;
