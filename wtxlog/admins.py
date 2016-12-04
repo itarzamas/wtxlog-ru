@@ -197,9 +197,9 @@ class CategoryAdmin(sqla.ModelView):
 
     def on_model_change(self, form, model, is_created):
         if not model.id:
-            c = Category.query.filter_by(name=model.name).first()
-            if c:
-                raise Exception('Category <%s> is already exist' % c.name)
+           # c = Category.query.filter_by(name=model.name).first()
+           # if c:
+           #     raise Exception('Category <%s> is already exist' % c.name)
 
             if not model.seotitle:
                 model.seotitle = model.name
@@ -253,10 +253,10 @@ class TagAdmin(sqla.ModelView):
 
     # Model handlers
     def on_model_change(self, form, model, is_created):
-        if not model.id:
-            t = Tag.query.filter_by(name=model.name).first()
-            if t:
-                raise Exception('Tag "%s" already exist' % t.name)
+        #if not model.id:
+        #    t = Tag.query.filter_by(name=model.name).first()
+        #    if t:
+        #        raise Exception('Tag "%s" already exist' % t.name)
 
             if not model.seotitle:
                 model.seotitle = model.name
@@ -312,9 +312,9 @@ class TopicAdmin(sqla.ModelView):
     # Model handlers
     def on_model_change(self, form, model, is_created):
         if not model.id:
-            t = Topic.query.filter_by(name=model.name).first()
-            if t:
-                raise Exception('Topic "%s" already exist' % t.name)
+          #  t = Topic.query.filter_by(name=model.name).first()
+          #  if t:
+          #      raise Exception('Topic "%s" already exist' % t.name)
 
             if not model.seotitle:
                 model.seotitle = model.name

@@ -2,15 +2,14 @@
 руководство пользователя
 ----------------------------
 
-This part of the documentation will show you how to get started in using
-Wtxlog.
+Эта глава содержит  документацию  как запустит и исопользовать wtxlog-ru.
 
 .. toctree::
    :maxdepth: 2
 
    installation
    quickstart
-   reqparse 
+   reqparse
    fields
    extending
    intermediate-usage
