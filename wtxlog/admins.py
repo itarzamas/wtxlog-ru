@@ -288,9 +288,9 @@ class TopicAdmin(sqla.ModelView):
     column_formatters = dict(view_on_site=view_on_site)
 
     column_labels = dict(
-        slug=_('Slug'),
-        name=_('Name'),
-        seotitle=_('SEOTitle'),
+        slug=('Slug'),
+        name=('Name'),
+        seotitle=('SEOTitle'),
         body=_('Body'),
         seokey=_('SEO Keyword'),
         seodesc=_('SEO Description'),
