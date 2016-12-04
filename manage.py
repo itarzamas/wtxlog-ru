@@ -4,15 +4,14 @@
 import os
 import sys
 from os import path
+# выскакивает врнингс 
+#/home/admin/.virtualenvs/wtxlog/local/lib/python2.7/site-packages/flask_admin/model/base.py:1324:
+# UserWarning: Fields missing from ruleset: slug
+# решение отсюда http://stackoverflow.com/questions/34091818/how-can-i-avoid-flask-admin-2-1-warning-userwarning-fields-missing-from-rulese
 
-#deps_paths = [
-#    path.join(path.split(path.realpath(__file__))[0], 'deps'),
-#    path.join(path.split(path.realpath(__file__))[0], 'mydeps'),
-#]
+import warnings
+warnings.filterwarnings('ignore', 'Fields missing from ruleset', UserWarning)
 
-#for deps_path in deps_paths:
-#    if deps_path not in sys.path:
-#        sys.path.insert(0, deps_path)
 
 COV = None
 if os.environ.get('FLASK_COVERAGE'):

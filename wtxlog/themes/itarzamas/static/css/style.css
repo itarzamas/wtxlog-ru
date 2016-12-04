@@ -61,11 +61,11 @@ a img {
 	border:0
 }
 .logo {
-	background:url("../images/logo.png") no-repeat;
+	/*background:url("../images/logotip.jpg") no-repeat;*/
 	margin:0;
 	padding:15px 0 0;
 	height:91px;
-	width:199px;
+	/*width:800px;*/
 	float:left;
 	/*font-size:1px*/
 }
@@ -114,10 +114,10 @@ a:hover {
 	text-decoration:underline
 }
 #header {
-	background:#FFF url("../images/headerbg.gif") repeat-x;
-	padding:0 22px;
+	background:#FFF url("../images/logotip.jpg") no-repeat;
+	/*padding:0 22px;*/
 	margin:0;
-	height:106px
+	height:124px
 }
 #header form {
 	float:right;
@@ -518,22 +518,25 @@ table th, table td {
 }
 table tr:nth-child(2n) {background-color: #f0f0f0;}
 #footer {
-	background:#0954a6;
-	border-top:3px solid #b8ed63;
+	/*background:#0954a6;
+	border-top:3px solid #b8ed63;*/
+	border-top:3px solid #0954a6;
 	padding:0;
 	margin:0 auto;
 	width:818px;
 	clear:both
 }
 #footer p {
-	color:#FFF;
+	color:0954a6;
+	/*color:#FFF;*/
 	font-size:12px;
 	margin:0;
 	padding:8px 0;
 	text-align:center
 }
 #footer p a {
-	color:#FFF
+	/*color:#FFF*/
+	color:0954a6;
 }
 .twitter {
 	margin-top:10px;

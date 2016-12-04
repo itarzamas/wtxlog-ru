@@ -20,6 +20,9 @@ from .models import *
 
 from config import Config
 
+
+
+
 BODY_FORMAT = Config.BODY_FORMAT
 if BODY_FORMAT == 'html':
     EDITOR_WIDGET = CKTextAreaField
@@ -464,6 +467,7 @@ class RedirectAdmin(sqla.ModelView):
 
 class UserAdmin(sqla.ModelView):
 
+    
     column_list = ('email', 'username', 'name', 'role', 'confirmed')
 
     form_excluded_columns = ('password_hash', 'avatar_hash', 'articles', 'member_since', 'last_seen')
