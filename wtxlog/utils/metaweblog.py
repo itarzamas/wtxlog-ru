@@ -9,7 +9,7 @@ from SimpleXMLRPCServer import SimpleXMLRPCDispatcher
 
 from flask import url_for, current_app, g
 from .upload import SaveUploadFile
-from ..models import db, User, Article as Post, Category
+from ..my_models import db, User, Article as Post, Category
 
 #Удалить хвост известные ноты
 pattern_wiz = re.compile(r'''<br\s?/><br\s?/><div><a.*href="http://www.wiz.cn.*">.*</a></div><br\s?/><br\s?/>''', re.I)

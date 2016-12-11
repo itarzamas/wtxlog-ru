@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from datetime import datetime
-from flask import redirect, url_for, Markup, flash
+from flask import redirect, url_for, Markup, flash, current_app
 from flask_babelex import lazy_gettext as _
 from flask_login import current_user, login_required
 from flask_admin import Admin, AdminIndexView, expose
@@ -16,10 +16,12 @@ from wtforms.fields import TextAreaField
 #from .utils.helpers import baidu_ping
 from .utils.widgets import MarkitupTextAreaField, CKTextAreaField
 from .ext import cache
-from .models import *
-
+from .models import Topic, Tag, Category,  Article, Flatpage,  FriendLink, Label, Redirect, \
+                    User
+from models.Setting import *
 from config import Config
 
+from wtxlog import db
 
 
 
@@ -139,14 +141,6 @@ class ArticleAdmin(sqla.ModelView):
 
     def is_accessible(self):
         return current_user.is_administrator()
-
-    @action('pingbaidu', 'Ping to Baidu')
-    def action_ping_baidu(self, ids):
-        for id in ids:
-            obj = Article.query.get(id)
-            baidu_ping(obj.link)
-            flash(u'PING  Запрос был отправлен, пожалуйста, подождите Baidu Обработка')
-            #flash(u'PING请求已发送，请等待百度处理')
 
 
 class CategoryAdmin(sqla.ModelView):
@@ -523,7 +517,7 @@ class SettingAdmin(sqla.ModelView):
 admin = Admin(index_view=MyAdminIndexView(),
               name=_('Admin'),
               base_template="admin/my_master.html")
-
+#import pdb; pdb.set_trace()
 # add views
 admin.add_view(TopicAdmin(Topic, db.session, name=_('Topic')))
 admin.add_view(CategoryAdmin(Category, db.session, name=_('Category')))

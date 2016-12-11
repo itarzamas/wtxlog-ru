@@ -241,16 +241,8 @@ class WtxlogCache(FlaskCache):
         return decorator
 
 
-def baememcache(app, config, args, kwargs):
-    from bae_memcache import BaeMemcache
-    return BaeMemcache(config['CACHE_BAE_ID'],
-                       config['CACHE_BAE_SERVERS'],
-                       config['CACHE_BAE_USERNAME'],
-                       config['CACHE_BAE_PASSWORD'])
-
-
 mail = Mail()
-db = SQLAlchemy()
+db = SQLAlchemy( )
 babel = Babel()
 
 login_manager = LoginManager()

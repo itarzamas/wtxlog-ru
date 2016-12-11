@@ -4,7 +4,7 @@ from flask import Blueprint
 
 main = Blueprint('main', __name__)
 
-from ..models import Permission
+from ..my_models import Permission
 from . import views, errors
 
 

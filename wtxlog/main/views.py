@@ -18,11 +18,10 @@ from ..decorators import permission_required
 from ..utils.helpers import render_template, get_category_ids, page_url
 from ..utils.upload import SaveUploadFile
 from ..utils.metaweblog import blog_dispatcher
-from ..ext import cache
-from ..models import db, Article, Category, Tag, Flatpage, Topic, \
-    Role, Permission
+from ..ext import cache,db
+from ..models import Article, Category, Tag, Flatpage, Topic,Role,User, Permission
 from . import main
-
+#import pdb;pdb.set_trace()
 IMAGE_TYPES = {
     'image/jpeg': '.jpg',
     'image/png': '.png',

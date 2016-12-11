@@ -1,16 +1,23 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 import os
+import pprint
 import sys
 from os import path
+from wtxlog import create_app, db, get_appconfig
+from flask_script import Manager
+from flask.ext.script.commands import ShowUrls, Clean
+from flask import current_app
+#,Command
+
+from flask_migrate import Migrate, MigrateCommand
 # выскакивает врнингс 
 #/home/admin/.virtualenvs/wtxlog/local/lib/python2.7/site-packages/flask_admin/model/base.py:1324:
 # UserWarning: Fields missing from ruleset: slug
 # решение отсюда http://stackoverflow.com/questions/34091818/how-can-i-avoid-flask-admin-2-1-warning-userwarning-fields-missing-from-rulese
 
-import warnings
-warnings.filterwarnings('ignore', 'Fields missing from ruleset', UserWarning)
+#import warnings
+#warnings.filterwarnings('ignore', 'Fields missing from ruleset', UserWarning)
 
 
 COV = None
@@ -19,18 +26,20 @@ if os.environ.get('FLASK_COVERAGE'):
     COV = coverage.coverage(branch=True, include='wtxlog/*')
     COV.start()
 
-from wtxlog import create_app, db, get_appconfig
-from flask_script import Manager
-from flask_migrate import Migrate, MigrateCommand
+
 
 # bae, sae, production, local(default)
 app = create_app(os.getenv('APP_CONFIG') or str(get_appconfig()) or 'default')
 
 manager = Manager(app)
 migrate = Migrate(app, db)
-
+manager.add_command('urls',ShowUrls())
 manager.add_command('db', MigrateCommand)
 
+@manager.command
+def dumpconfig():
+    "Dumps config"
+    pprint.pprint(current_app.config)
 
 @manager.command
 def deploy():
@@ -80,4 +89,4 @@ def test(coverage=False):
 
 
 if __name__ == '__main__':
-    manager.run()
+     manager.run()

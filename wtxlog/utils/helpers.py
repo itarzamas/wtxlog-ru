@@ -33,37 +33,3 @@ def page_url(page):
     return url_for(request.endpoint, **_kwargs)
 
 
-#def baidu_ping(url):
-#    """
-#    :ref: http://zhanzhang.baidu.com/tools/ping
-#
-#    ОтправитьPing используя XML-RPC Запрос клиента должен включать в себя следующие элементы:
-#    RPC Endpoint： http://ping.baidu.com/ping/RPC2
-#    Назовите имя метода: weblogUpdates.extendedPing
-#
-#     Параметры: (которые должны быть переданы в том же порядке, как указано ниже)
-#     название блога
-#     Блог Домашний адрес
-#     Новый адрес для волос статьи
-#     Адрес блога RSS
-#    """
-#
-#    result = 1
-#    rpc_server = xmlrpclib.ServerProxy('http://ping.baidu.com/ping/RPC2')
-#
-#    try:
-#        # Возвращает 0 успешно отправлен
-#        current_app.logger.info('begin to ping baidu: <%s>' % url)
-#        result = rpc_server.weblogUpdates.extendedPing(
-#            current_app.config.get('SITE_NAME'),
-#            url_for('main.index', _external=True),
-#            url,
-#            url_for('main.feed', _external=True)
-#        )
-#    except:
-#        pass
-#
-#    if result != 0:
-#        current_app.logger.warning('<%s> ping to baidu failed' % url)
-#
-#    return result == 0

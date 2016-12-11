@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from flask import request
-from ..models import db, Article
+from ..my_models import db, Article
 from . import myapi
 
 

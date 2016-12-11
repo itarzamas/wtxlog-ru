@@ -5,7 +5,7 @@ import datetime
 
 from flask import Markup, render_template_string
 from flask_restless.search import create_query
-from ..models import db, Article, Category, Tag, FriendLink, \
+from ..my_models import db, Article, Category, Tag, FriendLink, \
     Label, Topic, Setting
 from helpers import get_category_ids
 

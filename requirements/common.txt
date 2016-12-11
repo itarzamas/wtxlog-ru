@@ -10,6 +10,7 @@ Flask-SQLAlchemy
 Flask-Script
 Flask-WTF
 Flask-Bootstrap
+Flask-Themes
 Flask-Themes2
 Flask_Restless
 Markdown

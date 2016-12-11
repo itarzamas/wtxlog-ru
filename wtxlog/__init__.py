@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 import os
 from flask import Flask, send_from_directory
-from flask_themes2  import Themes
+from flask.ext.themes2 import Themes
+
+
 from flask_mobility import Mobility
 from config import config
 from ext import babel, cache, db, mail, login_manager
-from models import User, AnonymousUser, Setting
+from .models import User, AnonymousUser, Setting
 
 # Значение по умолчанию basic, strong Результате прочность после посадки несколько секунд, чтобы выйти на BAE3 явления
 # И JAE,SAE На не появляются, может быть среда двигателя проблема приложения, временно использовать значения по умолчанию
@@ -71,15 +73,18 @@ def create_app(config_name):
 
     from .api import api as api_blueprint
     app.register_blueprint(api_blueprint, url_prefix='/api')
-    
-    from .myapi import myapi as myapi_blueprint
-    app.register_blueprint(myapi_blueprint, url_prefix='/myapi')
-    
+
+    #from .myapi import myapi as myapi_blueprint
+    #app.register_blueprint(myapi_blueprint, url_prefix='/myapi')
+
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
 
     from .account import account as auth_blueprint
     app.register_blueprint(auth_blueprint, url_prefix='/account')
+    
+#    from .min import min as min_blueprint
+#    app.register_blueprint(min_blueprint)
 
     from .admins import admin
     admin.init_app(app)

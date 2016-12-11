@@ -41,7 +41,7 @@ class Config:
 
     APP_MAIL_SUBJECT_PREFIX = '[%s]' % SITE_NAME
     APP_MAIL_SENDER = '%s Admin <%s>' % (SITE_NAME, MAIL_USERNAME)
-    APP_ADMIN = os.getenv('APP_ADMIN') or 'admin@example.com'
+    APP_ADMIN = os.getenv('APP_ADMIN') or 'alint@it-arzamas.ru'
 
     # flask-cache basic configuration values
     CACHE_KEY = 'view/%s'
@@ -51,10 +51,10 @@ class Config:
     CACHE_KEY_PREFIX = '%s_' % md5(SECRET_KEY).hexdigest()[7:15]
 
     # QiNiu Cloud Storage
-    QINIU_AK = os.getenv('QINIU_AK') or ''
-    QINIU_SK = os.getenv('QINIU_SK') or ''
-    QINIU_BUCKET = os.getenv('QINIU_BUCKET') or ''
-    QINIU_DOMAIN = os.getenv('QINIU_DOMAIN') or '%s.qiniudn.com' % QINIU_BUCKET
+    #QINIU_AK = os.getenv('QINIU_AK') or ''
+    #QINIU_SK = os.getenv('QINIU_SK') or ''
+    #QINIU_BUCKET = os.getenv('QINIU_BUCKET') or ''
+    #QINIU_DOMAIN = os.getenv('QINIU_DOMAIN') or '%s.qiniudn.com' % QINIU_BUCKET
 
     @staticmethod
     def get_mailhandler():

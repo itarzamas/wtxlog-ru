@@ -3,7 +3,7 @@
 from flask import request, jsonify, redirect
 from flask_mobility.decorators import mobile_template
 from ..utils.helpers import render_template
-from ..models import db, Redirect
+from ..my_models import db, Redirect
 from . import main
 
 
