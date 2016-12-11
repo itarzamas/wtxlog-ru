@@ -1,0 +1,16 @@
+<form class="date-range" method="POST" class="form-group">
+    {{ form.hidden_tag() }}
+    {{ form.start_date.label() }} {{ form.start_date(class_='datepicker') }}
+    {% if form.start_date.errors %}
+        {% for e in form.start_date.errors %}
+            <span class="error">{{ e }}</span>
+        {% endfor %}
+    {% endif %}
+    {{ form.end_date.label() }} {{ form.end_date(class_='datepicker') }}
+    {% if form.end_date.errors %}
+        {% for e in form.end_date.errors %}
+            <span class="error">{{ e }}</span>
+        {% endfor %}
+    {% endif %}
+    {{ form.submit() }}
+</form>

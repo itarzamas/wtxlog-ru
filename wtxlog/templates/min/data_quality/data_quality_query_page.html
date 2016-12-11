@@ -1,0 +1,17 @@
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block query_parameters_form %}
+    {{ form | safe }}
+{% endblock %}
+
+<hr>
+
+{% block query_results %}
+    <div class="data-quality">
+        {{ query_results | safe }}
+    </div>
+
+    <div>
+        <button class="save-plots btn btn-default">Save all plots</button>
+    </div>
+{% endblock %}

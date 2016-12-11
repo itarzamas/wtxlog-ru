@@ -1,0 +1,405 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=cp1251" />
+    
+    <title>Quickstart</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Алфавитный указатель" href="genindex.html" />
+    <link rel="next" title="aaaaa" href="reqparse.html" />
+    <link rel="prev" title="Installation" href="installation.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="quickstart">
+<span id="id1"></span><h1>Quickstart</h1>
+<p>It&#8217;s time to write your first REST API. This guide assumes you have a working
+understanding of <a class="reference external" href="http://flask.pocoo.org" target="_blank">Flask</a>, and that you have already
+installed both Flask and Flask-RESTful.  If not, then follow the steps in the
+<a class="reference internal" href="installation.html#installation"><span class="std std-ref">Installation</span></a> section.</p>
+<div class="section" id="a-minimal-api">
+<h2>A Minimal API</h2>
+<p>A minimal Flask-RESTful API looks like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">flask</span> <span class="k">import</span> <span class="n">Flask</span>
+<span class="kn">from</span> <span class="nn">flask_restful</span> <span class="k">import</span> <span class="n">Resource</span><span class="p">,</span> <span class="n">Api</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+<span class="n">api</span> <span class="o">=</span> <span class="n">Api</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">HelloWorld</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;hello&#39;</span><span class="p">:</span> <span class="s1">&#39;world&#39;</span><span class="p">}</span>
+
+<span class="n">api</span><span class="o">.</span><span class="n">add_resource</span><span class="p">(</span><span class="n">HelloWorld</span><span class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Save this as api.py and run it using your Python interpreter. Note that we&#8217;ve
+enabled <a class="reference external" href="http://flask.pocoo.org/docs/quickstart/#debug-mode" target="_blank">Flask debugging</a>
+mode to provide code reloading and better error messages.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ python api.py
+ * Running on http://127.0.0.1:5000/
+ * Restarting with reloader
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Предупреждение</p>
+<p class="last">Debug mode should never be used in a production environment!</p>
+</div>
+<p>Now open up a new prompt to test out your API using curl</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ curl http://127.0.0.1:5000/
+{&quot;hello&quot;: &quot;world&quot;}
+</pre></div>
+</div>
+</div>
+<div class="section" id="resourceful-routing">
+<h2>Resourceful Routing</h2>
+<p>The main building block provided by Flask-RESTful are resources. Resources are
+built on top of <a class="reference external" href="http://flask.pocoo.org/docs/views/" target="_blank">Flask pluggable views</a>,
+giving you easy access to multiple HTTP methods just by defining methods on
+your resource. A basic CRUD resource for a todo application (of course) looks
+like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">flask</span> <span class="k">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">request</span>
+<span class="kn">from</span> <span class="nn">flask_restful</span> <span class="k">import</span> <span class="n">Resource</span><span class="p">,</span> <span class="n">Api</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+<span class="n">api</span> <span class="o">=</span> <span class="n">Api</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+
+<span class="n">todos</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">class</span> <span class="nc">TodoSimple</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">todo_id</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">todo_id</span><span class="p">:</span> <span class="n">todos</span><span class="p">[</span><span class="n">todo_id</span><span class="p">]}</span>
+
+    <span class="k">def</span> <span class="nf">put</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">todo_id</span><span class="p">):</span>
+        <span class="n">todos</span><span class="p">[</span><span class="n">todo_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">todo_id</span><span class="p">:</span> <span class="n">todos</span><span class="p">[</span><span class="n">todo_id</span><span class="p">]}</span>
+
+<span class="n">api</span><span class="o">.</span><span class="n">add_resource</span><span class="p">(</span><span class="n">TodoSimple</span><span class="p">,</span> <span class="s1">&#39;/&lt;string:todo_id&gt;&#39;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can try it like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ curl http://localhost:5000/todo1 -d &quot;data=Remember the milk&quot; -X PUT
+{&quot;todo1&quot;: &quot;Remember the milk&quot;}
+$ curl http://localhost:5000/todo1
+{&quot;todo1&quot;: &quot;Remember the milk&quot;}
+$ curl http://localhost:5000/todo2 -d &quot;data=Change my brakepads&quot; -X PUT
+{&quot;todo2&quot;: &quot;Change my brakepads&quot;}
+$ curl http://localhost:5000/todo2
+{&quot;todo2&quot;: &quot;Change my brakepads&quot;}
+</pre></div>
+</div>
+<p>Or from python if you have the <code class="docutils literal"><span class="pre">requests</span></code> library installed:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">requests</span> <span class="k">import</span> <span class="n">put</span><span class="p">,</span> <span class="n">get</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">put</span><span class="p">(</span><span class="s1">&#39;http://localhost:5000/todo1&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="s1">&#39;Remember the milk&#39;</span><span class="p">})</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<span class="go">{u&#39;todo1&#39;: u&#39;Remember the milk&#39;}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;http://localhost:5000/todo1&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<span class="go">{u&#39;todo1&#39;: u&#39;Remember the milk&#39;}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">put</span><span class="p">(</span><span class="s1">&#39;http://localhost:5000/todo2&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="s1">&#39;Change my brakepads&#39;</span><span class="p">})</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<span class="go">{u&#39;todo2&#39;: u&#39;Change my brakepads&#39;}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;http://localhost:5000/todo2&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<span class="go">{u&#39;todo2&#39;: u&#39;Change my brakepads&#39;}</span>
+</pre></div>
+</div>
+<p>Flask-RESTful understands multiple kinds of return values from view methods.
+Similar to Flask, you can return any iterable and it will be converted into a
+response, including raw Flask response objects. Flask-RESTful also support
+setting the response code and response headers using multiple return values,
+as shown below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Todo1</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Default to 200 OK</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;task&#39;</span><span class="p">:</span> <span class="s1">&#39;Hello world&#39;</span><span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">Todo2</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Set the response code to 201</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;task&#39;</span><span class="p">:</span> <span class="s1">&#39;Hello world&#39;</span><span class="p">},</span> <span class="mi">201</span>
+
+<span class="k">class</span> <span class="nc">Todo3</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Set the response code to 201 and return custom headers</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;task&#39;</span><span class="p">:</span> <span class="s1">&#39;Hello world&#39;</span><span class="p">},</span> <span class="mi">201</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;Etag&#39;</span><span class="p">:</span> <span class="s1">&#39;some-opaque-string&#39;</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="endpoints">
+<h2>Endpoints</h2>
+<p>Many times in an API, your resource will have multiple URLs. You can pass
+multiple URLs to the <code class="xref py py-meth docutils literal"><span class="pre">add_resource()</span></code> method on the <cite>Api</cite> object.
+Each one will be routed to your <code class="xref py py-class docutils literal"><span class="pre">Resource</span></code></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">api</span><span class="o">.</span><span class="n">add_resource</span><span class="p">(</span><span class="n">HelloWorld</span><span class="p">,</span>
+    <span class="s1">&#39;/&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;/hello&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can also match parts of the path as variables to your resource methods.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">api</span><span class="o">.</span><span class="n">add_resource</span><span class="p">(</span><span class="n">Todo</span><span class="p">,</span>
+    <span class="s1">&#39;/todo/&lt;int:todo_id&gt;&#39;</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="s1">&#39;todo_ep&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">If a request does not match any of your application&#8217;s endpoints,
+Flask-RESTful will return a 404 error message with suggestions of other
+endpoints that closely match the requested endpoint. This can be disabled
+by setting <code class="docutils literal"><span class="pre">ERROR_404_HELP</span></code> to <code class="docutils literal"><span class="pre">False</span></code> in your application config.</p>
+</div>
+</div>
+<div class="section" id="argument-parsing">
+<h2>Argument Parsing</h2>
+<p>While Flask provides easy access to request data (i.e. querystring or POST
+form encoded data), it&#8217;s still a pain to validate form data. Flask-RESTful
+has built-in support for request data validation using a library similar to
+<a class="reference external" href="http://docs.python.org/dev/library/argparse.html" target="_blank">argparse</a>.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">flask_restful</span> <span class="k">import</span> <span class="n">reqparse</span>
+
+<span class="n">parser</span> <span class="o">=</span> <span class="n">reqparse</span><span class="o">.</span><span class="n">RequestParser</span><span class="p">()</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;rate&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Rate to charge for this resource&#39;</span><span class="p">)</span>
+<span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Unlike the argparse module, <code class="xref py py-meth docutils literal"><span class="pre">reqparse.RequestParser.parse_args()</span></code>
+returns a Python dictionary instead of a custom data structure.</p>
+</div>
+<p>Using the <code class="xref py py-class docutils literal"><span class="pre">reqparse</span></code> module also gives you sane error messages for
+free. If an argument fails to pass validation, Flask-RESTful will respond with
+a 400 Bad Request and a response highlighting the error.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ curl -d &#39;rate=foo&#39; http://127.0.0.1:5000/todos
+{&#39;status&#39;: 400, &#39;message&#39;: &#39;foo cannot be converted to int&#39;}
+</pre></div>
+</div>
+<p>The <code class="xref py py-class docutils literal"><span class="pre">inputs</span></code> module provides a number of included common conversion
+functions such as <code class="xref py py-meth docutils literal"><span class="pre">inputs.date()</span></code> and <code class="xref py py-meth docutils literal"><span class="pre">inputs.url()</span></code>.</p>
+<p>Calling <code class="docutils literal"><span class="pre">parse_args</span></code> with <code class="docutils literal"><span class="pre">strict=True</span></code> ensures that an error is thrown if
+the request includes arguments your parser does not define.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="data-formatting">
+<h2>Data Formatting</h2>
+<p>By default, all fields in your return iterable will be rendered as-is. While
+this works great when you&#8217;re just dealing with Python data structures,
+it can become very frustrating when working with objects. To solve this
+problem, Flask-RESTful provides the <code class="xref py py-class docutils literal"><span class="pre">fields</span></code> module and the
+<code class="xref py py-meth docutils literal"><span class="pre">marshal_with()</span></code> decorator. Similar to the Django ORM and WTForm, you
+use the <code class="docutils literal"><span class="pre">fields</span></code> module to describe the structure of your response.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">OrderedDict</span>
+<span class="kn">from</span> <span class="nn">flask_restful</span> <span class="k">import</span> <span class="n">fields</span><span class="p">,</span> <span class="n">marshal_with</span>
+
+<span class="n">resource_fields</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;task&#39;</span><span class="p">:</span>   <span class="n">fields</span><span class="o">.</span><span class="n">String</span><span class="p">,</span>
+    <span class="s1">&#39;uri&#39;</span><span class="p">:</span>    <span class="n">fields</span><span class="o">.</span><span class="n">Url</span><span class="p">(</span><span class="s1">&#39;todo_ep&#39;</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">TodoDao</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">todo_id</span><span class="p">,</span> <span class="n">task</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">todo_id</span> <span class="o">=</span> <span class="n">todo_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">task</span> <span class="o">=</span> <span class="n">task</span>
+
+        <span class="c1"># This field will not be sent in the response</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s1">&#39;active&#39;</span>
+
+<span class="k">class</span> <span class="nc">Todo</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
+    <span class="nd">@marshal_with</span><span class="p">(</span><span class="n">resource_fields</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">TodoDao</span><span class="p">(</span><span class="n">todo_id</span><span class="o">=</span><span class="s1">&#39;my_todo&#39;</span><span class="p">,</span> <span class="n">task</span><span class="o">=</span><span class="s1">&#39;Remember the milk&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The above example takes a python object and prepares it to be serialized. The
+<code class="xref py py-meth docutils literal"><span class="pre">marshal_with()</span></code> decorator will apply the transformation described by
+<code class="docutils literal"><span class="pre">resource_fields</span></code>. The only field extracted from the object is <code class="docutils literal"><span class="pre">task</span></code>. The
+<code class="xref py py-class docutils literal"><span class="pre">fields.Url</span></code> field is a special field that takes an endpoint name
+and generates a URL for that endpoint in the response. Many of the field types
+you need are already included. See the <code class="xref py py-class docutils literal"><span class="pre">fields</span></code> guide for a complete
+list.</p>
+</div>
+<div class="section" id="full-example">
+<h2>Full Example</h2>
+<p>Save this example in api.py</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">flask</span> <span class="k">import</span> <span class="n">Flask</span>
+<span class="kn">from</span> <span class="nn">flask_restful</span> <span class="k">import</span> <span class="n">reqparse</span><span class="p">,</span> <span class="n">abort</span><span class="p">,</span> <span class="n">Api</span><span class="p">,</span> <span class="n">Resource</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+<span class="n">api</span> <span class="o">=</span> <span class="n">Api</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+
+<span class="n">TODOS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;todo1&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;task&#39;</span><span class="p">:</span> <span class="s1">&#39;build an API&#39;</span><span class="p">},</span>
+    <span class="s1">&#39;todo2&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;task&#39;</span><span class="p">:</span> <span class="s1">&#39;?????&#39;</span><span class="p">},</span>
+    <span class="s1">&#39;todo3&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;task&#39;</span><span class="p">:</span> <span class="s1">&#39;profit!&#39;</span><span class="p">},</span>
+<span class="p">}</span>
+
+
+<span class="k">def</span> <span class="nf">abort_if_todo_doesnt_exist</span><span class="p">(</span><span class="n">todo_id</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">todo_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">TODOS</span><span class="p">:</span>
+        <span class="n">abort</span><span class="p">(</span><span class="mi">404</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Todo </span><span class="si">{}</span><span class="s2"> doesn&#39;t exist&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">todo_id</span><span class="p">))</span>
+
+<span class="n">parser</span> <span class="o">=</span> <span class="n">reqparse</span><span class="o">.</span><span class="n">RequestParser</span><span class="p">()</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;task&#39;</span><span class="p">)</span>
+
+
+<span class="c1"># Todo</span>
+<span class="c1"># shows a single todo item and lets you delete a todo item</span>
+<span class="k">class</span> <span class="nc">Todo</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">todo_id</span><span class="p">):</span>
+        <span class="n">abort_if_todo_doesnt_exist</span><span class="p">(</span><span class="n">todo_id</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">TODOS</span><span class="p">[</span><span class="n">todo_id</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">todo_id</span><span class="p">):</span>
+        <span class="n">abort_if_todo_doesnt_exist</span><span class="p">(</span><span class="n">todo_id</span><span class="p">)</span>
+        <span class="k">del</span> <span class="n">TODOS</span><span class="p">[</span><span class="n">todo_id</span><span class="p">]</span>
+        <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="mi">204</span>
+
+    <span class="k">def</span> <span class="nf">put</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">todo_id</span><span class="p">):</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+        <span class="n">task</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;task&#39;</span><span class="p">:</span> <span class="n">args</span><span class="p">[</span><span class="s1">&#39;task&#39;</span><span class="p">]}</span>
+        <span class="n">TODOS</span><span class="p">[</span><span class="n">todo_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">task</span>
+        <span class="k">return</span> <span class="n">task</span><span class="p">,</span> <span class="mi">201</span>
+
+
+<span class="c1"># TodoList</span>
+<span class="c1"># shows a list of all todos, and lets you POST to add new tasks</span>
+<span class="k">class</span> <span class="nc">TodoList</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">TODOS</span>
+
+    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+        <span class="n">todo_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">TODOS</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s1">&#39;todo&#39;</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">todo_id</span> <span class="o">=</span> <span class="s1">&#39;todo</span><span class="si">%i</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">todo_id</span>
+        <span class="n">TODOS</span><span class="p">[</span><span class="n">todo_id</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;task&#39;</span><span class="p">:</span> <span class="n">args</span><span class="p">[</span><span class="s1">&#39;task&#39;</span><span class="p">]}</span>
+        <span class="k">return</span> <span class="n">TODOS</span><span class="p">[</span><span class="n">todo_id</span><span class="p">],</span> <span class="mi">201</span>
+
+<span class="c1">##</span>
+<span class="c1">## Actually setup the Api resource routing here</span>
+<span class="c1">##</span>
+<span class="n">api</span><span class="o">.</span><span class="n">add_resource</span><span class="p">(</span><span class="n">TodoList</span><span class="p">,</span> <span class="s1">&#39;/todos&#39;</span><span class="p">)</span>
+<span class="n">api</span><span class="o">.</span><span class="n">add_resource</span><span class="p">(</span><span class="n">Todo</span><span class="p">,</span> <span class="s1">&#39;/todos/&lt;todo_id&gt;&#39;</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Example usage</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ python api.py
+ * Running on http://127.0.0.1:5000/
+ * Restarting with reloader
+</pre></div>
+</div>
+<p>GET the list</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ curl http://localhost:5000/todos
+{&quot;todo1&quot;: {&quot;task&quot;: &quot;build an API&quot;}, &quot;todo3&quot;: {&quot;task&quot;: &quot;profit!&quot;}, &quot;todo2&quot;: {&quot;task&quot;: &quot;?????&quot;}}
+</pre></div>
+</div>
+<p>GET a single task</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ curl http://localhost:5000/todos/todo3
+{&quot;task&quot;: &quot;profit!&quot;}
+</pre></div>
+</div>
+<p>DELETE a task</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ curl http://localhost:5000/todos/todo2 -X DELETE -v
+
+&gt; DELETE /todos/todo2 HTTP/1.1
+&gt; User-Agent: curl/7.19.7 (universal-apple-darwin10.0) libcurl/7.19.7 OpenSSL/0.9.8l zlib/1.2.3
+&gt; Host: localhost:5000
+&gt; Accept: */*
+&gt;
+* HTTP 1.0, assume close after body
+&lt; HTTP/1.0 204 NO CONTENT
+&lt; Content-Type: application/json
+&lt; Content-Length: 0
+&lt; Server: Werkzeug/0.8.3 Python/2.7.2
+&lt; Date: Mon, 01 Oct 2012 22:10:32 GMT
+</pre></div>
+</div>
+<p>Add a new task</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ curl http://localhost:5000/todos -d &quot;task=something new&quot; -X POST -v
+
+&gt; POST /todos HTTP/1.1
+&gt; User-Agent: curl/7.19.7 (universal-apple-darwin10.0) libcurl/7.19.7 OpenSSL/0.9.8l zlib/1.2.3
+&gt; Host: localhost:5000
+&gt; Accept: */*
+&gt; Content-Length: 18
+&gt; Content-Type: application/x-www-form-urlencoded
+&gt;
+* HTTP 1.0, assume close after body
+&lt; HTTP/1.0 201 CREATED
+&lt; Content-Type: application/json
+&lt; Content-Length: 25
+&lt; Server: Werkzeug/0.8.3 Python/2.7.2
+&lt; Date: Mon, 01 Oct 2012 22:12:58 GMT
+&lt;
+* Closing connection #0
+{&quot;task&quot;: &quot;something new&quot;}
+</pre></div>
+</div>
+<p>Update a task</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ curl http://localhost:5000/todos/todo3 -d &quot;task=something different&quot; -X PUT -v
+
+&gt; PUT /todos/todo3 HTTP/1.1
+&gt; Host: localhost:5000
+&gt; Accept: */*
+&gt; Content-Length: 20
+&gt; Content-Type: application/x-www-form-urlencoded
+&gt;
+* HTTP 1.0, assume close after body
+&lt; HTTP/1.0 201 CREATED
+&lt; Content-Type: application/json
+&lt; Content-Length: 27
+&lt; Server: Werkzeug/0.8.3 Python/2.7.3
+&lt; Date: Mon, 01 Oct 2012 22:13:00 GMT
+&lt;
+* Closing connection #0
+{&quot;task&quot;: &quot;something different&quot;}
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, itarzamas.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5b1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="_sources/quickstart.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

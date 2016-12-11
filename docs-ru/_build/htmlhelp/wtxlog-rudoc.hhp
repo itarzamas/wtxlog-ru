@@ -1,0 +1,44 @@
+[OPTIONS]
+Binary TOC=No
+Binary Index=No
+Compiled file=wtxlog-rudoc.chm
+Contents file=wtxlog-rudoc.hhc
+Default Window=wtxlog-rudoc
+Default topic=index.html
+Display compile progress=No
+Full text search stop list file=wtxlog-rudoc.stp
+Full-text search=Yes
+Index file=wtxlog-rudoc.hhk
+Language=0x419
+Title=Документация wtxlog-ru 0.1
+
+[WINDOWS]
+wtxlog-rudoc="Документация wtxlog-ru 0.1","wtxlog-rudoc.hhc","wtxlog-rudoc.hhk","index.html","index.html",,,,,0x63520,220,0x10384e,[0,0,1024,768],,,,,,,0
+
+[FILES]
+intermediate-usage.html
+api.html
+installation.html
+index.html
+quickstart.html
+reqparse.html
+py-modindex.html
+extending.html
+genindex.html
+fields.html
+testing.html
+_static\file.png
+_static\comment.png
+_static\custom.css
+_static\alabaster.css
+_static\plus.png
+_static\up-pressed.png
+_static\comment-close.png
+_static\comment-bright.png
+_static\down.png
+_static\up.png
+_static\minus.png
+_static\down-pressed.png
+_static\ajax-loader.gif
+_static\pygments.css
+_static\basic.css
