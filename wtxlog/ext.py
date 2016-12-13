@@ -11,17 +11,7 @@ from flask_mail import Mail, Message
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from werkzeug._compat import text_type, to_bytes
-
-
-def keywords_split(keywords):
-    return keywords.replace(u',', ' ') \
-                   .replace(u';', ' ') \
-                   .replace(u'+', ' ') \
-                   .replace(u'；', ' ') \
-                   .replace(u'，', ' ') \
-                   .replace(u'　', ' ') \
-                   .split(' ')
-
+from .models import db, keywords_split
 
 class MySMTPHandler(logging.Handler):
     """

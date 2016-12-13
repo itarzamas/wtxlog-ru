@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from ..ext import db
+from . import db
 
 class Redirect(db.Model):
     """Перенаправление (редирект)"""

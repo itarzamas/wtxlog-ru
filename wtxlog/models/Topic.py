@@ -3,7 +3,8 @@
 from werkzeug import cached_property
 from flask import  request, url_for
 
-from ..ext import db
+from ..models import db, BODY_FORMAT
+
 class Topic(db.Model):
     """Тема """
 

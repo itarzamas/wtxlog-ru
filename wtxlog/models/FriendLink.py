@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from ..ext import db
+from . import db
 
 class FriendLink(db.Model):
     """ссылки на друзей (связи)"""

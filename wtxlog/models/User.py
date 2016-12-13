@@ -6,9 +6,8 @@ from itsdangerous import URLSafeTimedSerializer as Serializer
 from flask_login import UserMixin, AnonymousUserMixin
 from flask import  current_app, request
 from werkzeug.security import generate_password_hash, check_password_hash
-from ..ext import db, to_bytes
 from Role import Role
-from . import Permission
+from . import db, to_bytes, Permission
 from config import Config
 
 class User(UserMixin, db.Model):
@@ -168,13 +167,5 @@ class User(UserMixin, db.Model):
     def __unicode__(self):
         return self.name or self.username
 
-
-# Create M2M table
-#article_tags_table = db.Table(
-#    'article_tags',
-#    db.Model.metadata,
-#    db.Column('article_id', db.Integer, db.ForeignKey("articles.id", ondelete='CASCADE')),
-#    db.Column('tag_id', db.Integer, db.ForeignKey("tags.id", ondelete='CASCADE')),
-#)
 
 

@@ -20,6 +20,7 @@ from ..utils.upload import SaveUploadFile
 from ..utils.metaweblog import blog_dispatcher
 from ..ext import cache,db
 from ..models import Article, Category, Tag, Flatpage, Topic,Role,User, Permission
+from ..models.task import Task
 from . import main
 #import pdb;pdb.set_trace()
 IMAGE_TYPES = {
@@ -435,3 +436,37 @@ def ckupload():
     response = make_response(res)
     response.headers["Content-Type"] = "text/html"
     return response
+
+
+@main.route('/task/')
+def task_():
+    return redirect(url_for('.tasks'), code=301)
+
+
+@main.route('/tasks/')
+#@mobile_template('{mobile/}%s')
+@cache.cached(86400)
+def tasks(template):
+    _template = template % 'tasks.html'
+    return render_template(_template)
+
+
+@main.route('/task/<slug>/')
+@main.route('/task/<slug>/page/<int:page>/')
+#@mobile_template('{mobile/}%s')
+@cache.cached(86400)
+def task(template, slug, page=1):
+    task = Task.query.filter_by(slug=slug).first_or_404()
+
+    _url = page_url
+    _query = Task.query.public().filter(Task.topic_id == topic.id)
+    pagination = Page(_query, page=page, items_per_page=Task.PER_PAGE, url=_url)
+
+    tasks = pagination.items
+
+    _template = template % (task.template or 'task.html')
+    return render_template(_template,
+                           task=task,
+                           pagination=pagination,
+                           articles=articles)
+

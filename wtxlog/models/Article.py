@@ -1,19 +1,18 @@
 # -*- coding: utf-8 -*-
 
 from werkzeug import cached_property
-from flask import url_for
-from flask_sqlalchemy import BaseQuery
+from jinja2.filters import do_striptags, do_truncate
+
 import re
 pattern_hasmore = re.compile(r'<!--more-->', re.I)
 
-from ..ext import db
 from Category import  Category
 from Topic import Topic
 from User import User
 from Tag import Tag
-from . import ArticleQuery
-from . import article_tags_table
+from . import db, ArticleQuery, article_tags_table
 
+from ..models import BODY_FORMAT
 
 class Article(db.Model):
     """Сообщения (статья)"""

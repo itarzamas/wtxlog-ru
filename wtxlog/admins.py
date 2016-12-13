@@ -16,14 +16,12 @@ from wtforms.fields import TextAreaField
 #from .utils.helpers import baidu_ping
 from .utils.widgets import MarkitupTextAreaField, CKTextAreaField
 from .ext import cache
-from .models import Topic, Tag, Category,  Article, Flatpage,  FriendLink, Label, Redirect, \
-                    User
-from models.Setting import *
+from .models import Topic, Tag, Category,  Article, Flatpage,  FriendLink, Label, Redirect, User
+from models.task import Task
+from models.Setting import Setting
 from config import Config
 
 from wtxlog import db
-
-
 
 BODY_FORMAT = Config.BODY_FORMAT
 if BODY_FORMAT == 'html':
@@ -366,7 +364,8 @@ class FlatpageAdmin(sqla.ModelView):
         pass
 
     def after_model_change(self, form, model, is_created):
-        cache_delete(model.shortlink)
+            pass
+       # cache_delete(model.shortlink) #BuildError: ('main.task', {'task_id': 1}, None)
 
 
 class FriendLinkAdmin(sqla.ModelView):
@@ -511,21 +510,81 @@ class SettingAdmin(sqla.ModelView):
         return current_user.is_administrator()
 
 
-# init
+class TaskAdmin(sqla.ModelView):
+    text="TaskAdmin"
+    create_template = "admin/model/a_create.html"
+    edit_template = "admin/model/a_edit.html"
 
+    column_list = ('title', 'category',  'published', 
+                   'created', 'view_on_site')
 
+    form_excluded_columns = ('author', 'body_html', 'created',)
+
+    column_searchable_list = ('title',)
+
+    column_formatters = dict(view_on_site=view_on_site,
+                             created=format_datetime)
+
+    form_create_rules = (
+        'title',  'category', 'topic', 'body',
+        'published', 
+    )
+    form_edit_rules = form_create_rules
+
+    #form_overrides = dict(seodesc=TextAreaField, body=EDITOR_WIDGET,
+    #                      summary=TextAreaField)
+
+    column_labels = dict(
+        title=_('Title'),
+        category=_('Category'),
+        topic=_('Topic'),
+        body=_('Body'),
+        published=_('Published'),
+        created=('Created'),
+        view_on_site=_('View on Site'),
+    )
+
+    form_widget_args = {
+        'title': {'style': 'width:480px;'},
+        'slug': {'style': 'width:480px;'},
+     #   'thumbnail': {'style': 'width:480px;'},
+     #   'thumbnail_big': {'style': 'width:480px;'},
+         'summary': {'style': 'width:680px; height:80px;'},
+    }
+
+    # Model handlers
+    def on_model_change(self, form, model, is_created):
+        if is_created:
+            model.author_id = current_user.id
+            model.created = datetime.now()
+            model.last_modified = model.created
+        else:
+            model.last_modified = datetime.now()
+
+    def after_model_change(self, form, model, is_created):
+        # Если вы публикуете новую задачу, уведомить пользователей
+        if is_created and model.published:
+                pass
+             # Очистка кэша ???
+             #cache_delete(model.shortlink)
+
+    def is_accessible(self):
+        return current_user.is_administrator()
+
+    
+        
 admin = Admin(index_view=MyAdminIndexView(),
               name=_('Admin'),
               base_template="admin/my_master.html")
 #import pdb; pdb.set_trace()
 # add views
+admin.add_view(TaskAdmin(Task, db.session, name=_('Task')))
 admin.add_view(TopicAdmin(Topic, db.session, name=_('Topic')))
 admin.add_view(CategoryAdmin(Category, db.session, name=_('Category')))
 admin.add_view(TagAdmin(Tag, db.session, name=_('Tag')))
 
 admin.add_view(ArticleAdmin(Article, db.session, name=('Article')))
 
-#admin.add_view(FlatpageAdmin(Flatpage, db.session, name=_('Flatpage')))
 admin.add_view(FlatpageAdmin(Flatpage, db.session, name=('Flatpage')))
 
 admin.add_view(LabelAdmin(Label, db.session, name=_('Snippet')))

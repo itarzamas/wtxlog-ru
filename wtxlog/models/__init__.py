@@ -1,9 +1,24 @@
 # -*- coding: utf-8 -*-
 
 __author__ = 'itarzamas'
-from ..ext import db
-from flask_sqlalchemy import BaseQuery
 from flask import url_for
+from config import Config
+from flask_sqlalchemy import BaseQuery, SQLAlchemy
+#from werkzeug._compat import text_type, to_bytes
+from werkzeug._compat import to_bytes
+db = SQLAlchemy()
+BODY_FORMAT = Config.BODY_FORMAT
+
+def keywords_split(keywords):
+    return keywords.replace(u',', ' ') \
+                   .replace(u';', ' ') \
+                   .replace(u'+', ' ') \
+                   .replace(u'；', ' ') \
+                   .replace(u'，', ' ') \
+                   .replace(u'　', ' ') \
+                   .split(' ')
+
+
 class Permission:
     ''' Определение привилегий '''
 
@@ -28,8 +43,10 @@ article_tags_table = db.Table(
 )
 
 
+
+
 class ArticleQuery(BaseQuery):
- 
+
     def public(self):
         return self.filter_by(published=True)
 
@@ -55,6 +72,32 @@ class ArticleQuery(BaseQuery):
         q = reduce(db.and_, criteria)
         return self.public().filter(q)
 
+class TaskQuery(BaseQuery):
+
+    def public(self):
+        return self.filter_by(published=True)
+
+    def search(self, keyword):
+        criteria = []
+
+        for keyword in keywords_split(keyword):
+            keyword = u'%{0}%'.format(keyword)
+            criteria.append(db.or_(Task.title.ilike(keyword),))
+
+        q = reduce(db.or_, criteria)
+        return self.public().filter(q)
+
+    def archives(self, year, month):
+        if not year:
+            return self
+
+        criteria = []
+        criteria.append(db.extract('year', Task.created) == year)
+        if month:
+            criteria.append(db.extract('month', Task.created) == month)
+
+        q = reduce(db.and_, criteria)
+        return self.public().filter(q)
 
 from AnonymousUser import AnonymousUser
 from .Article import Article

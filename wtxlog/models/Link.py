@@ -12,7 +12,7 @@ from flask_sqlalchemy import BaseQuery
 from flask import current_app, request, url_for
 from flask_login import UserMixin, AnonymousUserMixin
 
-from ..ext import db
+from . import db
 
 class Link(db.Model):
     """Внутренние ссылки"""

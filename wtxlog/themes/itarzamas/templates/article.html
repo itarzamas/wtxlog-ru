@@ -12,7 +12,7 @@
   {% if article.get_next %}<link rel="next" title="{{ article.get_next.title}}" href="{{ article.get_next.link }}" />{% endif %}
 {%- endblock %}
 
-{% block crumb %}{{ nav_by_category(article.category) }}<b>&#187;</b>{{ article.title }}{% endblock %}
+{% block crumb %}<b>&#187;</b>{{ nav_by_category(article.category) }}<b>&#187;</b>{{ article.title }}{% endblock %}
 
 {% block main %}
 <div class="post" id="article-{{ article.id }}">

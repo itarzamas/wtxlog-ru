@@ -10,8 +10,7 @@ from jinja2.filters import do_striptags, do_truncate
 #from flask_sqlalchemy import BaseQuery
 from flask import current_app as app
 from flask import url_for
-
-from ..ext import db, keywords_split, to_bytes
+from ..models import keywords_split,db,BODY_FORMAT
 import Article
 
 class Category(db.Model):

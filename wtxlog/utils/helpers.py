@@ -15,7 +15,8 @@ def render_template(template, **context):
 
 
 def get_category_ids(longslug=''):
-    """"ID список назад к началу всех столбцов, указанных longslug"""
+    """ID список назад к началу всех столбцов, указанных longslug"""
+
     cates = Category.query.filter(Category.longslug.startswith(longslug))
     if cates:
         return [cate.id for cate in cates.all()]

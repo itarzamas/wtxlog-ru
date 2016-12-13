@@ -2,7 +2,7 @@
 
 #from flask import current_app, request, url_for
 
-from ..ext import db
+from . import db
 #, keywords_split, to_bytes
 #from config import Config
 

@@ -6,8 +6,8 @@ from flask.ext.themes2 import Themes
 
 from flask_mobility import Mobility
 from config import config
-from ext import babel, cache, db, mail, login_manager
-from .models import User, AnonymousUser, Setting
+from ext import babel, cache,  mail, login_manager
+from .models import db, User, AnonymousUser, Setting
 
 # Значение по умолчанию basic, strong Результате прочность после посадки несколько секунд, чтобы выйти на BAE3 явления
 # И JAE,SAE На не появляются, может быть среда двигателя проблема приложения, временно использовать значения по умолчанию
@@ -39,11 +39,13 @@ def get_appconfig():
 
 def configure_custom_settings(app):
     try:
-        s = Setting.query.filter_by(builtin=True)
+        #import pudb;pudb.set_trace()
+        s = Setting.query.filter_by(builtin=True) 
         settings = dict((i.name, i.value) for i in s.all())
         app.config.update(settings)
     except Exception as e:
         print(str(e))
+       
 
 
 def create_app(config_name):

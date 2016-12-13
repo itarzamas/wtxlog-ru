@@ -2,7 +2,8 @@
 from werkzeug import cached_property
 from flask import url_for
 
-from ..ext import db
+
+from ..models import db, BODY_FORMAT
 
 class Flatpage(db.Model):
     """Одна страница(плоская)"""

@@ -4,9 +4,10 @@ from flask_sqlalchemy import BaseQuery
 from flask import url_for
 #from flask import current_app, request, url_for
 from werkzeug import cached_property
-from ..ext import db
+from . import db
 import Article
 #, keywords_split, to_bytes
+from . import BODY_FORMAT
 
 class TagQuery(BaseQuery):
 

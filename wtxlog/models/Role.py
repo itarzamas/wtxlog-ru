@@ -2,9 +2,7 @@
 
 #from flask import current_app, request, url_for
 
-from ..ext import db 
-#, keywords_split, to_bytes
-#from Permission import Permission
+from . import db, Permission
 
 class Role(db.Model):
 
