@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 from flask import Flask, send_from_directory
-from flask.ext.themes2 import Themes
+from flask_themes2 import Themes
 
 
 from flask_mobility import Mobility
