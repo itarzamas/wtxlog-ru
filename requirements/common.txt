@@ -11,6 +11,7 @@ Flask-Script
 Flask-WTF
 Flask-Bootstrap
 Flask-Themes2
+Flask-Themes
 Markdown
 WebHelpers
 blinker
