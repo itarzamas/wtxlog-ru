@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 from flask import Flask, send_from_directory
-from flask_theme  import setup_themes
+from flask_themes  import setup_themes
 from flask_mobility import Mobility
 from config import config
 from ext import babel, cache, db, mail, login_manager
